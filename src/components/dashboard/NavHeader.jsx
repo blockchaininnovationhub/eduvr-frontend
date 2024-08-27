@@ -45,7 +45,7 @@ const NavHeader = () => {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
-              <nav className="grid gap-2 text-lg font-medium">
+              <nav className="grid gap-2 text-sm font-medium">
                 <Link
                   href="#"
                   className="flex items-center gap-2 text-lg font-semibold"
@@ -71,38 +71,54 @@ const NavHeader = () => {
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
                 >
                   <ShoppingCart className="h-5 w-5" />
-                  My Links
-                  <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                    6
-                  </Badge>
+                  Manage Links
                 </Link>
                 <Link
                   href="#"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <Package className="h-5 w-5" />
-                  Grading
+                  My Passport
                 </Link>
                 <Link
                   href="#"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <Users className="h-5 w-5" />
+                  3D Model Library
+                  <Badge className="ml-auto flex shrink-0 items-center justify-center rounded-full bg-blue-500">
+                      Soon
+                  </Badge>
+                </Link>
+                <Link
+                  href="#"
+                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                >
+                  <LineChart className="h-5 w-5" />
+                  Tracking & Analytics
+                  <Badge className="ml-auto flex shrink-0 items-center justify-center rounded-full bg-blue-500">
+                      Soon
+                  </Badge>
+                </Link>
+                <Link
+                  href="#"
+                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                >
+                  <LineChart className="h-5 w-5" />
                   Lesson Plans
+                  <Badge className="ml-auto flex shrink-0 items-center justify-center rounded-full bg-blue-500">
+                      Soon
+                  </Badge>
                 </Link>
                 <Link
                   href="#"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <LineChart className="h-5 w-5" />
-                  Report
-                </Link>
-                <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                >
-                  <LineChart className="h-5 w-5" />
-                  Assignments
+                  Assignments/Polls
+                  <Badge className="ml-auto flex shrink-0 items-center justify-center rounded-full bg-blue-500">
+                      Soon
+                  </Badge>
                 </Link>
               </nav>
               <div className="mt-auto">

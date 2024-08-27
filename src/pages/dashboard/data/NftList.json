@@ -9,7 +9,7 @@
         "title": "20 Hours Teaching Milestone",
         "desc": "You have successfully completed 20 hours of teaching weldone",
         "img": "7763251.jpg",
-        "status": true
+        "status": false
     },
     {
         "title": "The Good Lad",
@@ -33,12 +33,6 @@
         "title": "The General",
         "desc": "Coming soon",
         "img": "72728922.jpg",
-        "status": false
-    },
-    {
-        "title": "100 hours Milestone",
-        "desc": "Coming soon",
-        "img": "87373833.jpg",
         "status": false
     }
 ]

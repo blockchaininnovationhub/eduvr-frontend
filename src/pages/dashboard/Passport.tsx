@@ -24,13 +24,13 @@ const Passport = () => {
       <div className="flex flex-col">
         <NavHeader />
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-          <div className="mx-auto grid w-[53rem] max-w-[53rem] flex-1 auto-rows-max gap-4">
+          <div className="mx-auto grid w-full md:w-[53rem] md:max-w-[53rem] flex-1 auto-rows-max gap-4">
             <div className="flex items-center gap-4">
               <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
                 NFT Collection
               </h1>
               <Badge variant="outline" className="ml-auto sm:ml-0">
-                Minted 3 in Total
+                Minted 1 in Total
               </Badge>
             </div>
             <div className="flex flex-col">
@@ -51,12 +51,12 @@ const Passport = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start overflow-visible flex-wrap items-stretch">
+            <div className="flex flex-row gap-3 md:gap-4 overflow-visible flex-wrap items-stretch">
 
               {NFTList.map((data) => {
                 return(
-                  <div className="w-[12.5rem] relative group hover:z-50 backdrop-opacity-10">
-                    <Card className="overflow-visible transition-transform duration-300 transform group-hover:scale-125 hover:z-50 group-hover:z-50 hover:shadow-2xl hover:border-none _card_nft_container">
+                  <div className="w-[calc(50%-0.375rem)] md:w-[12.5rem] relative group hover:z-50 backdrop-opacity-10">
+                    <Card className="overflow-visible transition-transform duration-300 transform group-hover:scale-105 md:group-hover:scale-125 hover:z-50 group-hover:z-50 hover:shadow-2xl hover:border-none _card_nft_container">
                       <CardHeader className="p-2">
                         <Image
                           alt="EduVR Passport"
