@@ -5,13 +5,16 @@ import { signMessage } from "@wagmi/core";
 import { config } from "../wagmi";
 import { useAccount } from "wagmi";
 import { useCallback } from "react";
+import useLoading from "./useLoading";
 
 const useLogin = () => {
   const { message, setMessage, clearMessage } = useMessage();
   const { error, hasError, clearError } = useError();
   const { address } = useAccount();
+  const { isLoading, startLoading, stopLoading } = useLoading();
 
   const login = useCallback(async () => {
+    startLoading();
     try {
       clearError();
       clearMessage();
@@ -29,9 +32,10 @@ const useLogin = () => {
       setMessage(error.response?.data.message);
       hasError();
     }
+    stopLoading();
   }, [address]);
 
-  return { error, message, login };
+  return { error, message, login, isLoading };
 };
 
 export default useLogin;

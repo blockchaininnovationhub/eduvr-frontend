@@ -2,10 +2,10 @@ import { simulateContract, writeContract } from "@wagmi/core";
 import memeTokenFactoryAbi from "../abi/passport.json";
 import { config } from "../wagmi";
 
-const mintToken = async (): Promise<string> => {
+const mintPassport = async (): Promise<string> => {
   const { request, result } = await simulateContract(config, {
     abi: memeTokenFactoryAbi,
-    address: process.env.NEXT_PUBLIC_MEME_TOKEN_FACTORY as `0x${string}`,
+    address: process.env.NEXT_PUBLIC_PASSPORT_ADDRESS as `0x${string}`,
     functionName: "safeMint",
   });
 
@@ -16,4 +16,4 @@ const mintToken = async (): Promise<string> => {
   return result;
 };
 
-export default mintToken;
+export default mintPassport;
