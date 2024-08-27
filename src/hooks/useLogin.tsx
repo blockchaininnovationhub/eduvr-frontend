@@ -6,6 +6,7 @@ import { config } from "../wagmi";
 import { useAccount } from "wagmi";
 import { useCallback } from "react";
 import useLoading from "./useLoading";
+import { setTokens } from "@/utils/token";
 
 const useLogin = () => {
   const { message, setMessage, clearMessage } = useMessage();
@@ -15,6 +16,7 @@ const useLogin = () => {
 
   const login = useCallback(async () => {
     startLoading();
+
     try {
       clearError();
       clearMessage();
@@ -27,7 +29,10 @@ const useLogin = () => {
         timestamp,
         walletAddress: address?.toLowerCase(),
       });
-      setMessage(req.data.message);
+      const { accessToken, refreshToken } = req.data.message;
+      setTokens(accessToken, refreshToken);
+      setMessage("login successfully");
+      return true;
     } catch (error: any) {
       setMessage(error.response?.data.message);
       hasError();

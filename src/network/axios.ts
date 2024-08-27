@@ -1,3 +1,4 @@
+import { getAccessToken, getRefreshToken, setAccessToken } from "@/utils/token";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
@@ -5,8 +6,6 @@ interface CustomAxiosRequestConfig extends AxiosRequestConfig {
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const REFRESH_TOKEN_KEY = "refresh_token";
-const ACCESS_TOKEN_KEY = "access_token";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -14,21 +13,6 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
-
-const getAccessToken = () => localStorage.getItem(ACCESS_TOKEN_KEY);
-
-const getRefreshToken = () => localStorage.getItem(REFRESH_TOKEN_KEY);
-
-const setAccessToken = (accessToken: string) =>
-  localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-
-const setRefreshToken = (refreshToken: string) =>
-  localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
-
-const saveTokens = (accessToken: string, refreshToken: string) => {
-  setAccessToken(accessToken);
-  setRefreshToken(refreshToken);
-};
 
 axiosInstance.interceptors.request.use(
   (config: any) => {
