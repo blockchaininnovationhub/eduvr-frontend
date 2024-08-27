@@ -1,11 +1,37 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import Link from "next/link"
 import useLogin from "@/hooks/useLogin";
 import { useEffect } from "react";
 
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner"
+import { Toaster } from "@/components/ui/sonner"
+import { Loader2 } from "lucide-react"
+
+import StructureSchool from "@/pages/common/Structure";
+
 const Login = () => {
   const { login, isLoading, error, message } = useLogin();
+
+  async function _login(): Promise<any> {
+    if (await login()) {
+      toast("Success", {
+        description: "Signup Successful",
+      });
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
+    }
+  }
+  
+  useEffect(() => {
+    if (error) {
+      toast("Error", {
+        description: message,
+      });
+    }
+  }, [error, message]);
 
   return (
     <>
@@ -19,23 +45,31 @@ const Login = () => {
         <div className="flex flex-col md:flex-row justify-center gap-y-6 md:gap-y-0 gap-x-8 w-full">
           <div className="pr-10 max-w-sm">
             <h2 className="text-4xl font-bold">
-              Connect to virtual <br /> EduVr classroom
+              Connect to <br /> EduVr classroom
             </h2>
             <p className="mt-4 text-base">
-              if you don't have an account you can <a>register here</a>
+              if you don't have an account you can <br /> <Link href="/signup" className="text-blue-600">Register here</Link>
             </p>
-          </div>
-          <div className="pr-10">lorem ipsum dolor sit amet</div>
-          <div className="max-w-sm flex-1">
-            <div>
+            <div className="mt-4">
               {isLoading ? (
-                <Button>Loading...</Button>
+                <Button disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </Button>
               ) : (
-                <Button onClick={login}>Submit</Button>
+                <Button onClick={_login}>Sign-In</Button>
               )}
             </div>
           </div>
+          <div className="max-w-sm flex-1">
+            <section className="w-full flex justify-center">
+              <div className="w-full h-[400px]">
+                <StructureSchool />
+              </div>
+            </section>
+          </div>
         </div>
+        <Toaster />
       </div>
     </>
   );
