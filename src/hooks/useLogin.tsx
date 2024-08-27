@@ -29,9 +29,10 @@ const useLogin = () => {
         timestamp,
         walletAddress: address?.toLowerCase(),
       });
-      const { accessToken, refreshToken } = req.data.message;
+      const { accessToken, refreshToken } = req.data;
       setTokens(accessToken, refreshToken);
       setMessage("login successfully");
+      stopLoading();
       return true;
     } catch (error: any) {
       setMessage(error.response?.data.message);

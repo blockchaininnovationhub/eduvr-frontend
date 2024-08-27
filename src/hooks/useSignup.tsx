@@ -55,6 +55,7 @@ const useSignup = () => {
         timestamp,
       });
       setMessage(req.data.message);
+      stopLoading();
       return true;
     } catch (error: any) {
       setMessage(error.response.data.message);
