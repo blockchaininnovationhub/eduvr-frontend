@@ -5,7 +5,10 @@ import useSignup from "@/hooks/useSignup";
 
 const Test = () => {
   const { login } = useLogin();
-  const { signup } = useSignup();
+  const { signup, message, error } = useSignup();
+
+  console.log(message, error);
+
   const { address } = useAccount();
   useEffect(() => {
     if (!address) return;
