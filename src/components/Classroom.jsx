@@ -51,13 +51,7 @@ const Classroom = () => {
             >
                 {/* <OrbitControls /> */}
                 <CameraManager />
-                {/* <Environment preset="sunset" /> */}
-                <Environment background>
-                    <mesh>
-                        <sphereGeometry args={[50, 100, 100]} />
-                        <meshBasicMaterial color="#f2f2f2" side={THREE.BackSide} />
-                    </mesh>
-                </Environment>
+                <Environment preset="sunset" />
                 <Students />
                 <Html 
                     position={[-0.0793, 0.175, -3]} 
