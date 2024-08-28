@@ -6,7 +6,7 @@ export const Board = () => {
   const remoteRef = useRef(null);
 
   useEffect(() => {
-    const peer = new Peer("session-universal1");
+    const peer = new Peer("session-universal12");
 
     peer.on("open", (id) => {
       console.log("My session ID is " + id);
@@ -16,29 +16,26 @@ export const Board = () => {
         .then((stream) => {
           localRef.current.srcObject = stream;
 
-          // Play the local stream after it has loaded
           localRef.current.onloadedmetadata = () => {
             localRef.current.play();
           };
-
-          peer.on("call", (call) => {
-            console.log("received call");
-            call.answer(stream);
-
-            call.on("stream", (remoteStream) => {
-              console.log("received stream");
-              remoteRef.current.srcObject = remoteStream;
-
-              // Play the remote stream after it has loaded
-              remoteRef.current.onloadedmetadata = () => {
-                remoteRef.current.play();
-              };
-            });
-          });
         })
         .catch((err) => {
           console.error("Failed to get local stream:", err);
         });
+    });
+
+    peer.on("call", (call) => {
+      console.log("received call");
+      call.answer(stream);
+
+      call.on("stream", (remoteStream) => {
+        remoteRef.current.srcObject = remoteStream;
+
+        remoteRef.current.onloadedmetadata = () => {
+          remoteRef.current.play();
+        };
+      });
     });
 
     peer.on("connection", (connection) => {
@@ -49,9 +46,7 @@ export const Board = () => {
       console.error("Peer error:", err);
     });
 
-    return () => {
-      peer.destroy();
-    };
+
   }, []);
 
   return (
@@ -60,14 +55,11 @@ export const Board = () => {
         ref={localRef}
         className="w-1/2 h-full object-cover"
         controls
-        preload="none"
-        autoPlay
       ></video>
       <video
         ref={remoteRef}
         className="w-1/2 h-full object-cover"
         controls
-        preload="none"
         autoPlay
       ></video>
     </div>
