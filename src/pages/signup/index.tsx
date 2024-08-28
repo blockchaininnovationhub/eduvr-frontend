@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { Loader2 } from "lucide-react";
 
-import StructureSchool from "@/pages/common/Structure";
+import StructureSchool from "@/components/common/Structure";
 import { useRouter } from "next/router";
 
 const Signup = () => {

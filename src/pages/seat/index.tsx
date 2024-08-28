@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import { Toaster } from "@/components/ui/sonner"
 
-import StructureSchoolPreview from "@/pages/common/SchoolPreview";
+import StructureSchoolPreview from "@/components/common/SchoolPreview";
 import { useState } from "react";
 
 import Image from "next/image";

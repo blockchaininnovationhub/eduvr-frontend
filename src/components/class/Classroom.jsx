@@ -6,7 +6,7 @@ import { Teacher } from "../Teacher";
 import { degToRad } from "three/src/math/MathUtils";
 import { Navbar } from "../Nav";
 import { Board } from "./Board";
-import ClassRooomStructure from "@/components/class/ClassStructure";
+import ClassRooomStructure from "./ClassStructure";
 import { useState } from "react";
 
 
