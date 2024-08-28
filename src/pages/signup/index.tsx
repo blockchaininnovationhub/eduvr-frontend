@@ -1,13 +1,41 @@
 "use client";
 
-import { z } from "zod";
+import Link from "next/link"
+import useSignup from "@/hooks/useSignup";
+import { useAccount } from "wagmi";
+import { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
-import useSignup from "@/hooks/useSignup";
+import { toast } from "sonner"
+import { Toaster } from "@/components/ui/sonner"
+import { Loader2 } from "lucide-react"
+
+import StructureSchool from "@/pages/common/Structure";
 
 const Signup = () => {
-  const { signup, isLoading, error, message } = useSignup();
+  const account = useAccount();
+  const { signup, isLoading, error, message } : any = useSignup();
 
+
+  async function _signup(): Promise<any> {
+    if (await signup()) {
+      toast("Success", {
+        description: "Signup Successful",
+      });
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
+    }
+  }
+  
+  useEffect(() => {
+    if (error) {
+      toast("Error", {
+        description: message,
+      });
+    }
+  }, [error, message]);
+  
   return (
     <>
       <div>
@@ -17,23 +45,38 @@ const Signup = () => {
         </div>
       </div>
       <div className="w-full h-screen min-h-screen flex flex-col items-center justify-center overflow-hidden _Container p-6">
-        <div className="flex flex-col md:flex-row justify-center gap-y-6 md:gap-y-0 gap-x-8 w-full">
+        <div className="flex flex-col md:flex-row justify-center gap-y-6 md:gap-y-0 gap-x-8 w-full items-center">
           <div className="pr-10 max-w-sm">
             <h2 className="text-4xl font-bold">
-              Join 3d virtual <br /> EduVr class
+              Join EduVR <br /> virtual Classroom
             </h2>
             <p className="mt-4 text-base">
-              if you don't have an account you can <a>register here</a>
+              if you already have an account you can <br /> <Link href="/login" className="text-blue-600">Login here</Link>
             </p>
-          </div>
-          <div className="max-w-sm flex-1">
-            <div>
-              <Button onClick={signup} type="submit">
-                Submit
-              </Button>
+            <div className="mt-4">
+              {isLoading ? (
+                <Button disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </Button>
+              ) 
+              : (
+                <Button onClick={_signup} type="submit">
+                Get started{" "}
+                </Button>
+              ) 
+              }
             </div>
           </div>
+          <div className="max-w-sm flex-1">
+            <section className="w-full flex justify-center">
+              <div className="w-full h-[400px]">
+                <StructureSchool />
+              </div>
+            </section>
+          </div>
         </div>
+        <Toaster />
       </div>
     </>
   );

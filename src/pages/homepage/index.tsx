@@ -19,11 +19,11 @@ const Homepage = () => {
             </div>
             <HeroNav />
           </div>
-          <section className="w-full flex flex-col items-center justify-center py-6 mt-2">
+          <section className="w-full flex flex-col items-center justify-center px-6 md:px-12 py-6 mt-2">
             <div className="max-w-xl">
               <div className="text-center flex flex-col gap-y-2 mt-4">
-                <h1 className="text-5xl font-semibold text-slate-800">Connect to 3D classroom for everyone</h1>
-                <p className="text-2xl text-slate-700 py-2">Connect, interact, and learn from any location with EduVR.</p>
+                <h1 className="text-4xl md:text-5xl font-semibold text-slate-800">Connect to 3D classroom for everyone</h1>
+                <p className="text-xl md:text-2xl text-slate-700 py-2">Connect, interact, and learn from any location with EduVR.</p>
               </div>
               <div className="mt-4 text-center flex flex-row gap-x-3 justify-center">
                 <CreateClassroom />

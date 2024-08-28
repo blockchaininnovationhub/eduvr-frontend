@@ -16,7 +16,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 const HeroNav = () => {
   return (
     <div className="flex flex-col w-full py-2">
-      <div className="flex flex-row items-center gap-x-5 text-sm px-12 py-2 justify-between">
+      <div className="flex flex-row items-center gap-x-5 text-sm px-6 md:px-12 py-2 justify-between">
         <div className="flex items-center flex-row">
           <Image
             src="/logo/logo_black2.png"
@@ -25,7 +25,7 @@ const HeroNav = () => {
             className="w-28 object-contain"
             alt="EduVr Logo"
           />
-          <ul className="flex flex-row gap-x-5 ml-12 text-slate-800 items-center text-sm font-medium">
+          <ul className="hidden md:flex flex-row gap-x-5 ml-12 text-slate-800 items-center text-sm font-medium">
             <li>
               <NavigationMenu>
                 <NavigationMenuList>
