@@ -8,12 +8,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import NavHeader from "@/components/dashboard/NavHeader";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import NavHeader from "../../components/dashboard/NavHeader";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 import { useEffect, useState } from "react";
 import { createCall, getStats } from "@/utils/call";
-import LinkTable from "@/components/dashboard/LinkTable";
+import LinkTable from "../../components/dashboard/LinkTable";
 import { useRouter } from "next/router";
 import { CallProps } from "@/types";
 

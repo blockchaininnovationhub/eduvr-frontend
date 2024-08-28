@@ -7,6 +7,8 @@ import { Toaster } from "@/components/ui/sonner"
 import StructureSchoolPreview from "@/pages/common/SchoolPreview";
 import { useState } from "react";
 
+import Image from "next/image";
+
 const Login = () => {
   const [chairsAvailable, setChairsAvailable] = useState(25);
   
@@ -60,10 +62,9 @@ const Login = () => {
             </div>
           </div>
           <div className="max-w-sm flex-1">
-            <section className="w-full flex justify-center">
-              <div className="w-full h-[400px] bg-amber-300">
-                <StructureSchoolPreview />
-              </div>
+            <section className="w-full flex flex-row justify-center gap-3">
+              <Image src="/avatar/default-0.png" width={300} height={200} className="w-[110px]" alt="avatar" />
+              <Image src="/avatar/default-1.png" width={300} height={200} className="w-[110px]" alt="avatar" />
             </section>
           </div>
         </div>

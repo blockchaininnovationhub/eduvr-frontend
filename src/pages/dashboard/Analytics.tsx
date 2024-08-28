@@ -34,8 +34,8 @@ import {
 } from "@/components/ui/chart";
 import { Separator } from "@/components/ui/separator";
 
-import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import NavHeader from "@/components/dashboard/NavHeader";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import NavHeader from "../../components/dashboard/NavHeader";
 
 export default function Charts() {
   return (

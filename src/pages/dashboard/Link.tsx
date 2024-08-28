@@ -1,6 +1,6 @@
-import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import NavHeader from "@/components/dashboard/NavHeader";
-import LinkTable from "@/components/dashboard/LinkTable";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import NavHeader from "../../components/dashboard/NavHeader";
+import LinkTable from "../../components/dashboard/LinkTable";
 
 const Link = () => {
     return(

@@ -1,5 +1,5 @@
-import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import NavHeader from "@/components/dashboard/NavHeader";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import NavHeader from "../../components/dashboard/NavHeader";
 import { Button } from "@/components/ui/button"
 
 const Passport = () => {

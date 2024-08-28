@@ -2,37 +2,37 @@
     {
         "title": "EduVR Passport",
         "desc": "NFT Passport and unlock the ability to create and manage your own classroom",
-        "img": "7705329.jpg",
+        "img": "educhain.webp",
         "status": true
     },
     {
         "title": "20 Hours Teaching Milestone",
         "desc": "You have successfully completed 20 hours of teaching weldone",
-        "img": "7763251.jpg",
+        "img": "educhain.webp",
         "status": false
     },
     {
         "title": "The Good Lad",
         "desc": "Pretty Awesome you are a good lad",
-        "img": "7742248.jpg",
+        "img": "educhain.webp",
         "status": false
     },
     {
         "title": "EduVR Signature",
         "desc": "You've earned it the signature to the worlf",
-        "img": "7748166.jpg",
+        "img": "educhain.webp",
         "status": false
     },
     {
         "title": "EduVR Workaholic",
         "desc": "NFT EARNED LFG",
-        "img": "17829202.jpg",
+        "img": "educhain.webp",
         "status": false
     },
     {
         "title": "The General",
         "desc": "Coming soon",
-        "img": "72728922.jpg",
+        "img": "educhain.webp",
         "status": false
     }
 ]

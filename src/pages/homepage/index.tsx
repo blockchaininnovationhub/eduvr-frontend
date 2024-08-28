@@ -1,4 +1,4 @@
-import SchoolCav from "@/components/SchoolCanvas";
+import SchoolCav from "@/components/home/SchoolCanvas";
 import { Button } from "@/components/ui/button"
 
 import { Toaster } from "@/components/ui/sonner"

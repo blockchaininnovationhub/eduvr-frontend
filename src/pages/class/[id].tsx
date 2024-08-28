@@ -1,5 +1,5 @@
-import Classroom from "@/components/Classroom";
-import StudentClassroom from "@/components/StudentClassroom";
+import Classroom from "@/components/class/Classroom";
+import StudentClassroom from "@/components/class/StudentClassroom";
 import useLoading from "@/hooks/useLoading";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 import { CallProps } from "@/types";
@@ -14,6 +14,8 @@ const Class = () => {
   const [call, setCall] = useState<CallProps>({});
   const [profile, setProfile] = useState<any>({});
   const { isLoading, stopLoading } = useLoading(true);
+
+  console.log("hjgjhghhjg")
 
   const isTeacher = useMemo(() => {
     if (profile && call) {

@@ -1,5 +1,5 @@
-import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import NavHeader from "@/components/dashboard/NavHeader";
+import DashboardLayout from "../../components/dashboard/DashboardLayout";
+import NavHeader from "../../components/dashboard/NavHeader";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Upload } from "lucide-react";

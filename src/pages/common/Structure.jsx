@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from '@/components/CanvasLoader';
 import { angleToRadians } from "@/utils/angleToRadians";
-import StructureSchool from "@/pages/common/Calligraphy_school";
+import StructureSchool from "@/components/models/Calligraphy_school";
 
 const LayoutCanvas = () => {
     return (

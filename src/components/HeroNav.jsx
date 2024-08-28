@@ -42,7 +42,7 @@ const HeroNav = () => {
                               href="/"
                             >
                               <Image
-                                src="/NFT/7705329.jpg"
+                                src="/NFT/educhain.webp"
                                 width={200}
                                 height={200}
                                 alt="NFT Passport"

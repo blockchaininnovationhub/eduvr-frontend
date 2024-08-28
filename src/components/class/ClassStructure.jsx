@@ -19,8 +19,6 @@ export default function Model(props) {
     <group
       {...props}
       dispose={null}
-      position={[4.1, -1.5, -1.5]}
-      rotation={[0, Math.PI / 2, 0]}
     >
       <mesh
         geometry={nodes.MARCO_DER_N_StingrayPBS1_0.geometry}

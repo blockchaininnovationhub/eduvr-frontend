@@ -2,9 +2,9 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls, Preload, useGLTF } from "@react-three/drei";
-import CanvasLoader from './CanvasLoader';
-import { angleToRadians } from "../utils/angleToRadians";
-import Snowlayout from "@/pages/homepage/Colourd_scene";
+import CanvasLoader from '../CanvasLoader';
+import { angleToRadians } from "../../utils/angleToRadians";
+import Snowlayout from "@/components/models/Colourd_scene";
 
 const SchoolCanvas = () => {
     return (
