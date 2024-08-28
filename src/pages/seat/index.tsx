@@ -17,8 +17,10 @@ import {
   getMyCalls,
   getStats,
 } from "@/utils/call";
+
 import { promises } from "dns";
 import { useRouter } from "next/router";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   callId: string;
@@ -27,8 +29,6 @@ interface Props {
 const PickSeat : React.FC<Props> = ({callId}) => {
   const [chairsAvailable, setChairsAvailable] = useState(32);
   const [availableSeats, setAvailableSeats] = useState<number[]>([]);
-
-  console.log({ callId });
 
   useEffect(() => {
     const fetchAvailableSeats = async () => {
@@ -41,37 +41,38 @@ const PickSeat : React.FC<Props> = ({callId}) => {
     };
 
     fetchAvailableSeats();
+
   }, [callId]);
 
   const chooseChoose = () => {
     
   }
   
-  // const renderChairs = () => {
-  //   const chairs = [];
+  const renderChairs = () => {
+    const chairs = [];
 
-  //   for (let i = 0; i < chairsAvailable; i++) {
+    for (let i = 0; i < chairsAvailable; i++) {
 
-  //     const isAvailable = availbleseat.includes(i);
-  //     chairs.push(
-  //       <div
-  //         key={i}
-  //         className={`w-7 h-7 border rounded-sm flex items-center justify-center hover:opacity-40 available_chair ${isAvailable ? "available_chair_success" : "chosen_chair"}`}
-  //       >
-  //         <svg
-  //           xmlns="http://www.w3.org/2000/svg"
-  //           className="w-4 h-4"
-  //           viewBox="0 0 24 24"
-  //           style={{ msFilter: "" }}
-  //           fill="currentColor"
-  //         >
-  //           <path d="M19 13V4c0-1.103-.897-2-2-2H7c-1.103 0-2 .897-2 2v9a1 1 0 00-1 1v8h2v-5h12v5h2v-8a1 1 0 00-1-1zm-2-9v9h-2V4h2zm-4 0v9h-2V4h2zM7 4h2v9H7V4z"></path>
-  //         </svg>
-  //       </div>
-  //     );
-  //   }
-  //   return chairs;
-  // };
+      const isAvailable = availableSeats.includes(i);
+      chairs.push(
+        <div
+          key={i}
+          className={`w-7 h-7 border rounded-sm flex items-center justify-center hover:opacity-40 available_chair ${isAvailable ? "available_chair_success" : "chosen_chair"}`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-4 h-4"
+            viewBox="0 0 24 24"
+            style={{ msFilter: "" }}
+            fill="currentColor"
+          >
+            <path d="M19 13V4c0-1.103-.897-2-2-2H7c-1.103 0-2 .897-2 2v9a1 1 0 00-1 1v8h2v-5h12v5h2v-8a1 1 0 00-1-1zm-2-9v9h-2V4h2zm-4 0v9h-2V4h2zM7 4h2v9H7V4z"></path>
+          </svg>
+        </div>
+      );
+    }
+    return chairs;
+  };
 
   return (
     <>
@@ -95,6 +96,7 @@ const PickSeat : React.FC<Props> = ({callId}) => {
                     {/* {renderChairs()} */}
                 </div>
             </div>
+            <div><Button>Select Chair</Button></div>
           </div>
           <div className="max-w-sm flex-1">
             <section className="w-full flex flex-row justify-center gap-3">
