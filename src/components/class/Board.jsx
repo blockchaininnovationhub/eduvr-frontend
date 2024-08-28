@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Peer from "peerjs";
 
 export const Board = () => {
@@ -15,7 +15,11 @@ export const Board = () => {
         .getUserMedia({ video: true, audio: true })
         .then((stream) => {
           localRef.current.srcObject = stream;
-          localRef.current.play();
+
+          // Play the local stream after it has loaded
+          localRef.current.onloadedmetadata = () => {
+            localRef.current.play();
+          };
 
           peer.on("call", (call) => {
             console.log("received call");
@@ -24,7 +28,11 @@ export const Board = () => {
             call.on("stream", (remoteStream) => {
               console.log("received stream");
               remoteRef.current.srcObject = remoteStream;
-              remoteRef.current.play();
+
+              // Play the remote stream after it has loaded
+              remoteRef.current.onloadedmetadata = () => {
+                remoteRef.current.play();
+              };
             });
           });
         })

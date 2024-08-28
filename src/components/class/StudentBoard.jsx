@@ -13,14 +13,22 @@ export const StudentBoard = () => {
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
         localRef.current.srcObject = stream;
-        localRef.current.play();
+
+        // Play the local stream after it has loaded
+        localRef.current.onloadedmetadata = () => {
+          localRef.current.play();
+        };
 
         const call = currentPeer.current.call(remotePeerId, stream);
 
         call.on("stream", (remoteStream) => {
-          console.log("received stream");
+          console.log("Received stream");
           remoteRef.current.srcObject = remoteStream;
-          remoteRef.current.play();
+
+          // Play the remote stream after it has loaded
+          remoteRef.current.onloadedmetadata = () => {
+            remoteRef.current.play();
+          };
         });
 
         call.on("close", () => {
