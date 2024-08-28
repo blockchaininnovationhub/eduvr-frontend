@@ -36,9 +36,6 @@ export const StudentBoard = () => {
         call.on("error", (err) => {
           console.error("Call error:", err);
         });
-      })
-      .catch((err) => {
-        console.error("Failed to get local stream:", err);
       });
   };
 
