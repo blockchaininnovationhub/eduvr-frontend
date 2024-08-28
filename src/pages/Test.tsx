@@ -7,6 +7,7 @@ import {
   createCallParticipant,
   getAvailablePositions,
   getMyCalls,
+  getStats,
 } from "@/utils/call";
 import AuthMiddleware from "@/middlewares/AuthMiddleware";
 
@@ -39,8 +40,19 @@ const Test = () => {
           Join Call
         </button>
         <button onClick={getMyCalls}>Get my Call</button>
-        <button onClick={getAvailablePositions("oJA-XbC-7iAl")}>
+        <button
+          onClick={() => {
+            getAvailablePositions("oJA-XbC-7iAl");
+          }}
+        >
           Get my available positions
+        </button>
+        <button
+          onClick={() => {
+            getStats();
+          }}
+        >
+          Get Stats
         </button>
       </>
       )

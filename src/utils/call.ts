@@ -39,7 +39,7 @@ export const getMyCalls = async () => {
   }
 };
 
-export const getAvailablePositions = async (callId: number) => {
+export const getAvailablePositions = async (callId: string) => {
   try {
     const call = await axios.get(`/call/positions/${callId}`);
     return call.data;
@@ -51,6 +51,15 @@ export const getAvailablePositions = async (callId: number) => {
 export const getProfile = async () => {
   try {
     const call = await axios.get(`/auth/profile`);
+    return call.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getStats = async () => {
+  try {
+    const call = await axios.get(`/call/stats`);
     return call.data;
   } catch (error) {
     return null;
