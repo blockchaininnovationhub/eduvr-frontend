@@ -7,6 +7,7 @@ import {
   createCallParticipant,
   deactivateCall,
   getAvailablePositions,
+  getCallParticipants,
   getMyCalls,
   getStats,
 } from "@/utils/call";
@@ -62,6 +63,14 @@ const Test = () => {
           }}
         >
           Deactivate Call
+        </button>
+
+        <button
+          onClick={() => {
+            getCallParticipants("oJA-XbC-7iAl");
+          }}
+        >
+          Get Call Participants
         </button>
       </>
       )
