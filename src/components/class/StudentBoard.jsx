@@ -22,11 +22,11 @@ export const StudentBoard = () => {
 
         call.on("stream", (remoteStream) => {
           console.log("Received stream");
-          remoteRef.current.srcObject = remoteStream;
+          // remoteRef.current.srcObject = remoteStream;
 
-          remoteRef.current.onloadedmetadata = () => {
-            remoteRef.current.play();
-          };
+          // remoteRef.current.onloadedmetadata = () => {
+          //   remoteRef.current.play();
+          // };
         });
 
         call.on("close", () => {
@@ -65,7 +65,7 @@ export const StudentBoard = () => {
         controls
       ></video>
       <video
-        ref={remoteRef}
+        src="/Venice_5.mp4"
         className="w-1/3 h-full object-cover"
         controls
       ></video>
