@@ -43,7 +43,7 @@ const Classroom = () => {
     [3.2, 0, 6],
   ];
 
-  const [seatVal, setSeatVal] = useState(4);
+  const [seatVal, setSeatVal] = useState(2);
 
   return (
     <>

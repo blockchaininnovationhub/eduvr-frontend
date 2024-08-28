@@ -22,12 +22,9 @@ type CallParticipantProps = {
 };
 
 export const createCallParticipant = async (props: CallParticipantProps) => {
-  try {
     const call = await axios.post(`/call/participant`, props);
     return call.data;
-  } catch (error) {
-    return null;
-  }
+  
 };
 
 export const getCallParticipants = async (callId: string) => {

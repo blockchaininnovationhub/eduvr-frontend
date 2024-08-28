@@ -102,7 +102,7 @@ const Class = () => {
             <Classroom />
           </AuthMiddleware>
         ) : (
-          !isSeatLoading ? seat ? <p>hello</p> : <PickSeat callId={parsedId} /> : <p>still loading</p>
+          !isSeatLoading ? seat ? <StudentClassroom /> : <PickSeat callId={parsedId} /> : <p>still loading</p>
         )}
       </main>
     )
