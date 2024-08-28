@@ -96,13 +96,17 @@ const PickSeat : React.FC<Props> = ({callId}) => {
                     {/* {renderChairs()} */}
                 </div>
             </div>
-            <div><Button>Select Chair</Button></div>
+            <div className="w-full flex flex-col pb-4">
+              <p className="text-base mb-2">Select Avatar</p>
+              <div className="flex flex-row gap-2">
+                <Image src="/avatar/default-0.png" width={300} height={200} className="w-[70px] rounded-md shadow-lg" alt="avatar" />
+                <Image src="/avatar/default-1.png" width={300} height={200} className="w-[70px] rounded-md shadow-lg" alt="avatar" />
+              </div>
+            </div>
+            <div><Button>Subnit</Button></div>
           </div>
           <div className="max-w-sm flex-1">
-            <section className="w-full flex flex-row justify-center gap-3">
-              <Image src="/avatar/default-0.png" width={300} height={200} className="w-[110px]" alt="avatar" />
-              <Image src="/avatar/default-1.png" width={300} height={200} className="w-[110px]" alt="avatar" />
-            </section>
+            
           </div>
         </div>
         <Toaster />
