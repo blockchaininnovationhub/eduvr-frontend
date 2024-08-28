@@ -1,5 +1,5 @@
 "use client";
-import { CameraControls, Environment, Gltf, Html, OrbitControls } from "@react-three/drei";
+import { CameraControls, Environment, Html } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Students } from './Students';  
 import { Teacher } from "./Teacher";
@@ -7,9 +7,7 @@ import { degToRad } from "three/src/math/MathUtils";
 import { Navbar } from "./Nav";
 import { Board } from "./Board";
 import ClassRooomStructure from "@/pages/class/ClassStructure";
-import * as THREE from "three"; 
-import { useEffect, useRef, useState } from "react";
-import { angleToRadians } from "@/utils/angleToRadians";
+import { useState } from "react";
 
 
 const Classroom = () => {
