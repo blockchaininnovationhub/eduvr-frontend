@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link"
+import Link from "next/link";
 
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 
 import StructureSchoolPreview from "@/components/common/SchoolPreview";
@@ -27,39 +27,30 @@ interface Props {
   callId: string;
 }
 
-
-const PickSeat : React.FC<Props> = ({callId}) => {
+const PickSeat: React.FC<Props> = ({ callId }) => {
   const [availableSeats, setAvailableSeats] = useState<Array<number>>([]);
   const [pickedSeat, setPickedSeat] = useState<number | null>(null);
   const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null);
 
-  const [seatAvatar, setseatAvatar] = useState();
-
-  const chairs = useMemo(()=>{
-    return Array.from({length: 32}, (_, index) => index)
-  }, [])
+  const chairs = useMemo(() => {
+    return Array.from({ length: 32 }, (_, index) => index);
+  }, []);
 
   useEffect(() => {
     const fetchAvailableSeats = async () => {
       try {
         const seats = await getAvailablePositions(callId);
-        setAvailableSeats(seats?.availablePositions); 
+        setAvailableSeats(seats?.availablePositions);
       } catch (error) {
-        console.error('Error fetching available seats:', error);
+        console.error("Error fetching available seats:", error);
       }
     };
 
     fetchAvailableSeats();
-
   }, [callId]);
 
-  const AvatarClick = (avatar: number) => {
-    setSelectedAvatar(avatar);
-  };
-
   const handleSubmit = async () => {
-
-    if(!selectedAvatar || !pickedSeat)  {
+    if (typeof selectedAvatar !== "number" || typeof pickedSeat !== "number") {
       toast("Error", {
         description: "Select Seat and Avatar",
       });
@@ -73,57 +64,48 @@ const PickSeat : React.FC<Props> = ({callId}) => {
         position: pickedSeat,
       });
 
-      const seatsData = localStorage.getItem('seats');
+      const seatsData = localStorage.getItem("seats");
       const seats = seatsData ? JSON.parse(seatsData) : {};
 
       seats[callId] = {
         avatar: selectedAvatar,
         position: pickedSeat,
-      }
+      };
 
-      localStorage.setItem('seats', JSON.stringify(seats));
+      localStorage.setItem("seats", JSON.stringify(seats));
       window.location.reload();
-
-    } catch (error : any) {
+    } catch (error: any) {
       toast("Error", {
         description: error?.response?.data?.message,
       });
-      
     }
-  }
+  };
 
-  useEffect(() => {
-    const stateData = {
-      pickedSeat: pickedSeat,
-      selectedAvatar: selectedAvatar
-    };
-    console.log('State Data:', JSON.stringify(stateData));
-  }, [pickedSeat, selectedAvatar]);
-
-  const renderChairs =useMemo(() => {
-     
+  const renderChairs = useMemo(() => {
     return chairs.map((index) => {
+      const isAvailable = availableSeats.includes(index);
 
-    const isAvailable = availableSeats.includes(index);
-
-    return <div
-         key={index}
-         className={`w-7 h-7 border rounded-sm flex items-center justify-center hover:opacity-40 available_chair ${isAvailable ? "available_chair_success" : "chosen_chair"}`}
-         onClick={() => setPickedSeat(index)}
-       >
-         <svg
-           xmlns="http://www.w3.org/2000/svg"
-           className="w-4 h-4"
-           viewBox="0 0 24 24"
-           style={{ msFilter: "" }}
-           fill="currentColor"
-         >
-           <path d="M19 13V4c0-1.103-.897-2-2-2H7c-1.103 0-2 .897-2 2v9a1 1 0 00-1 1v8h2v-5h12v5h2v-8a1 1 0 00-1-1zm-2-9v9h-2V4h2zm-4 0v9h-2V4h2zM7 4h2v9H7V4z"></path>
-         </svg>
-       </div>}
-     );
- 
- }, [availableSeats]);
+      return (
+        <div
+          key={index}
+          className={`w-7 h-7 border rounded-sm flex items-center justify-center hover:opacity-40 available_chair ${
+            isAvailable ? "available_chair_success" : "chosen_chair"
+          }`}
+          onClick={() => setPickedSeat(index)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-4 h-4"
+            viewBox="0 0 24 24"
+            style={{ msFilter: "" }}
+            fill="currentColor"
+          >
+            <path d="M19 13V4c0-1.103-.897-2-2-2H7c-1.103 0-2 .897-2 2v9a1 1 0 00-1 1v8h2v-5h12v5h2v-8a1 1 0 00-1-1zm-2-9v9h-2V4h2zm-4 0v9h-2V4h2zM7 4h2v9H7V4z"></path>
+          </svg>
+        </div>
+      );
+    });
+  }, [availableSeats]);
 
   return (
     <>
@@ -136,28 +118,40 @@ const PickSeat : React.FC<Props> = ({callId}) => {
       <div className="w-full h-screen min-h-screen flex flex-col items-center justify-center overflow-hidden _Container p-6">
         <div className="flex flex-col md:flex-row justify-center gap-y-6 md:gap-y-0 gap-x-8 w-full py-20">
           <div className="pr-10 max-w-sm">
-            <h2 className="text-4xl font-bold">
-              Select a seat
-            </h2>
+            <h2 className="text-4xl font-bold">Select a seat</h2>
             <p className="mt-4 text-base">
-                Select an available seat to fully immerse yourself in the class experience.
+              Select an available seat to fully immerse yourself in the class
+              experience.
             </p>
             <div className="flex">
-                <div className="grid grid-cols-5 mt-5 gap-3">
-                    {renderChairs}
-                </div>
+              <div className="grid grid-cols-5 mt-5 gap-3">{renderChairs}</div>
             </div>
             <div className="w-full flex flex-col mt-4">
               <p className="mb-2 text-sm font-bold">Select Avatar</p>
               <div className="flex flex-row gap-2">
-                <Image src="/avatar/default-0.png" width={300} height={200} className="w-[70px] rounded-md shadow-lg hover:opacity-60 transition-all" alt="avatar" onClick={() => AvatarClick(0)} />
-                <Image src="/avatar/default-1.png" width={300} height={200} className="w-[70px] rounded-md shadow-lg hover:opacity-60 transition-all" alt="avatar" onClick={() => AvatarClick(1)} />
+                <Image
+                  src="/avatar/default-0.png"
+                  width={300}
+                  height={200}
+                  className="w-[70px] rounded-md shadow-lg hover:opacity-60 transition-all"
+                  alt="avatar"
+                  onClick={() => setSelectedAvatar(0)}
+                />
+                <Image
+                  src="/avatar/default-1.png"
+                  width={300}
+                  height={200}
+                  className="w-[70px] rounded-md shadow-lg hover:opacity-60 transition-all"
+                  alt="avatar"
+                  onClick={() => setSelectedAvatar(1)}
+                />
               </div>
             </div>
-            <div className="mt-4"><Button onClick={handleSubmit}>Submit</Button></div>
+            <div className="mt-4">
+              <Button onClick={handleSubmit}>Submit</Button>
+            </div>
           </div>
-          <div className="max-w-sm flex-1">
-          </div>
+          <div className="max-w-sm flex-1"></div>
         </div>
         <Toaster />
       </div>
