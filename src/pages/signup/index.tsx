@@ -1,21 +1,22 @@
 "use client";
 
-import Link from "next/link"
+import Link from "next/link";
 import useSignup from "@/hooks/useSignup";
 import { useAccount } from "wagmi";
 import { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner"
-import { Toaster } from "@/components/ui/sonner"
-import { Loader2 } from "lucide-react"
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
+import { Loader2 } from "lucide-react";
 
 import StructureSchool from "@/pages/common/Structure";
+import { useRouter } from "next/router";
 
 const Signup = () => {
-  const account = useAccount();
-  const { signup, isLoading, error, message } : any = useSignup();
+  const { signup, isLoading, error, message }: any = useSignup();
 
+  const router = useRouter();
 
   async function _signup(): Promise<any> {
     if (await signup()) {
@@ -23,11 +24,11 @@ const Signup = () => {
         description: "Signup Successful",
       });
       setTimeout(() => {
-        window.location.href = "/login";
+        router.push("/login");
       }, 2000);
     }
   }
-  
+
   useEffect(() => {
     if (error) {
       toast("Error", {
@@ -35,7 +36,7 @@ const Signup = () => {
       });
     }
   }, [error, message]);
-  
+
   return (
     <>
       <div>
@@ -51,7 +52,10 @@ const Signup = () => {
               Join EduVR <br /> virtual Classroom
             </h2>
             <p className="mt-4 text-base">
-              if you already have an account you can <br /> <Link href="/login" className="text-blue-600">Login here</Link>
+              if you already have an account you can <br />{" "}
+              <Link href="/login" className="text-blue-600">
+                Login here
+              </Link>
             </p>
             <div className="mt-4">
               {isLoading ? (
@@ -59,13 +63,11 @@ const Signup = () => {
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Please wait
                 </Button>
-              ) 
-              : (
+              ) : (
                 <Button onClick={_signup} type="submit">
-                Get started{" "}
+                  Get started{" "}
                 </Button>
-              ) 
-              }
+              )}
             </div>
           </div>
           <div className="max-w-sm flex-1">

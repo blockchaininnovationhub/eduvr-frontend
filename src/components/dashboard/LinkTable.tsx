@@ -28,9 +28,21 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import LinkData from "@/pages/dashboard/data/LinkData";
+import { useEffect, useState } from "react";
+import { getMyCalls } from "@/utils/call";
+import { CallProps } from "@/types";
 
 const LinkTable = () => {
+  const [calls, setCalls] = useState<Array<CallProps>>([]);
+
+  useEffect(() => {
+    const _getMyCalls = async () => {
+      const _calls = await getMyCalls();
+      setCalls(_calls);
+    };
+
+    _getMyCalls();
+  }, []);
   return (
     <div className="w-full overflow-x-auto">
       <Tabs defaultValue="week">
@@ -84,22 +96,24 @@ const LinkTable = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {LinkData.map((data, index) => {
+                  {calls.map((data: CallProps, index) => {
                     return (
                       <TableRow key={index}>
                         <TableCell className="sm:table-cell">
                           {index + 1}
                         </TableCell>
                         <TableCell>
-                          <div className="font-medium">{data.url}</div>
+                          <div className="font-medium">{`${window.location.protocol}//${window.location.hostname}/class/${data._id}`}</div>
                         </TableCell>
                         <TableCell className="sm:table-cell">
                           <Badge className="text-xs" variant="secondary">
-                            {data.status}
+                            {data.status ? "active" : "inactive"}
                           </Badge>
                         </TableCell>
                         <TableCell className="md:table-cell whitespace-nowrap">
-                          {data.date}
+                          {new Date(data.createdAt ?? "").toLocaleDateString() +
+                            " at " +
+                            new Date(data.createdAt ?? "").toLocaleTimeString()}
                         </TableCell>
                       </TableRow>
                     );

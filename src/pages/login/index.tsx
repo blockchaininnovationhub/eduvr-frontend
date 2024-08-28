@@ -1,18 +1,20 @@
 "use client";
 
-import Link from "next/link"
+import Link from "next/link";
 import useLogin from "@/hooks/useLogin";
 import { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner"
-import { Toaster } from "@/components/ui/sonner"
-import { Loader2 } from "lucide-react"
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
+import { Loader2 } from "lucide-react";
 
 import StructureSchool from "@/pages/common/Structure";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const { login, isLoading, error, message } = useLogin();
+  const router = useRouter();
 
   async function _login(): Promise<any> {
     if (await login()) {
@@ -20,11 +22,11 @@ const Login = () => {
         description: "Signup Successful",
       });
       setTimeout(() => {
-        window.location.href = "/login";
+        router.push("/dashboard");
       }, 2000);
     }
   }
-  
+
   useEffect(() => {
     if (error) {
       toast("Error", {
@@ -48,7 +50,10 @@ const Login = () => {
               Connect to <br /> EduVr classroom
             </h2>
             <p className="mt-4 text-base">
-              if you don't have an account you can <br /> <Link href="/signup" className="text-blue-600">Register here</Link>
+              if you don't have an account you can <br />{" "}
+              <Link href="/signup" className="text-blue-600">
+                Register here
+              </Link>
             </p>
             <div className="mt-4">
               {isLoading ? (

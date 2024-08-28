@@ -65,3 +65,12 @@ export const getStats = async () => {
     return null;
   }
 };
+
+export const deactivateCall = async (callId: string) => {
+  try {
+    const call = await axios.post(`/call/deactivate/${callId}`);
+    return call.data;
+  } catch (error) {
+    return null;
+  }
+};

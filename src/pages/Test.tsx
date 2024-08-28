@@ -5,6 +5,7 @@ import useSignup from "@/hooks/useSignup";
 import {
   createCall,
   createCallParticipant,
+  deactivateCall,
   getAvailablePositions,
   getMyCalls,
   getStats,
@@ -53,6 +54,14 @@ const Test = () => {
           }}
         >
           Get Stats
+        </button>
+
+        <button
+          onClick={() => {
+            deactivateCall("oJA-XbC-7iAl");
+          }}
+        >
+          Deactivate Call
         </button>
       </>
       )
