@@ -34,7 +34,7 @@ const Test = () => {
           onClick={() => {
             createCallParticipant({
               avatar: 1,
-              callId: "oJA-XbC-7iAl",
+              callId: "GVT-Qzb-cr7M",
               position: 2,
             });
           }}
@@ -44,7 +44,7 @@ const Test = () => {
         <button onClick={getMyCalls}>Get my Call</button>
         <button
           onClick={() => {
-            getAvailablePositions("oJA-XbC-7iAl");
+            getAvailablePositions("GVT-Qzb-cr7M");
           }}
         >
           Get my available positions
@@ -59,7 +59,7 @@ const Test = () => {
 
         <button
           onClick={() => {
-            deactivateCall("oJA-XbC-7iAl");
+            deactivateCall("GVT-Qzb-cr7M");
           }}
         >
           Deactivate Call
@@ -67,7 +67,7 @@ const Test = () => {
 
         <button
           onClick={() => {
-            getCallParticipants("oJA-XbC-7iAl");
+            getCallParticipants("GVT-Qzb-cr7M");
           }}
         >
           Get Call Participants

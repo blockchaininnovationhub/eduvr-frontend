@@ -6,6 +6,7 @@ import { CallProps } from "@/types";
 import { getCall, getProfile } from "@/utils/call";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
+import PickSeat from "../seat";
 
 const Class = () => {
   const router = useRouter();
@@ -14,8 +15,44 @@ const Class = () => {
   const [call, setCall] = useState<CallProps>({});
   const [profile, setProfile] = useState<any>({});
   const { isLoading, stopLoading } = useLoading(true);
+  const { isLoading: isSeatLoading, stopLoading: stopSeatLoading } = useLoading(true);
 
-  console.log("hjgjhghhjg")
+  const parsedId = useMemo(() : string=> {
+    if (!id) return "";
+
+    let _id: string;
+
+    if (typeof id === "object") {
+      _id = id[0];
+    } else {
+      _id = id;
+    }
+
+    return _id;
+  }, [id])
+
+  const seat = useMemo(()=> {
+
+    if(!parsedId) return false
+
+    const seats = localStorage.getItem('seats')
+    if(!seats) {
+      stopSeatLoading()
+      return false
+    }
+    try {
+      const seatObjects = JSON.parse(seats)
+      stopSeatLoading()
+      return seatObjects[parsedId]
+
+    } catch (error) {
+      stopSeatLoading()
+
+      return false
+    }
+
+
+  }, [parsedId])
 
   const isTeacher = useMemo(() => {
     if (profile && call) {
@@ -23,6 +60,7 @@ const Class = () => {
     }
     return false;
   }, [profile, call]);
+
 
   useEffect(() => {
     if (!id) return;
@@ -64,7 +102,7 @@ const Class = () => {
             <Classroom />
           </AuthMiddleware>
         ) : (
-          <StudentClassroom />
+          !isSeatLoading ? seat ? <p>hello</p> : <PickSeat callId={parsedId} /> : <p>still loading</p>
         )}
       </main>
     )

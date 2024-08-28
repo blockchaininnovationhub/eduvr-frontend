@@ -12,7 +12,7 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF('models/class_caligraphy/calligraphy_school-transformed.glb')
+  const { nodes, materials } = useGLTF('/models/class_caligraphy/calligraphy_school-transformed.glb')
   return (
     <group {...props} dispose={null}>
       <mesh castShadow receiveShadow geometry={nodes.pCylinder3_phong2_0.geometry} material={materials.PaletteMaterial001} position={[0.512, 0.419, -0.377]} scale={[0.06, 0.279, 0.06]} />
@@ -564,4 +564,4 @@ export default function Model(props) {
   )
 }
 
-useGLTF.preload('models/class_caligraphy/calligraphy_school-transformed.glb')
+useGLTF.preload('/models/class_caligraphy/calligraphy_school-transformed.glb')
