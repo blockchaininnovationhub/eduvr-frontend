@@ -6,6 +6,7 @@ export const StudentBoard = () => {
   const currentPeer = useRef(null);
 
   const call = (remotePeerId) => {
+    console.log("Call to " + remotePeerId);
     var getUserMedia =
       navigator.getUserMedia ||
       navigator.webkitGetUserMedia ||
@@ -26,7 +27,7 @@ export const StudentBoard = () => {
     const peer = new Peer();
     peer.on("open", (id) => {
       console.log("my session" + id);
-      call("session");
+      call("session-xyzqqw");
     });
 
     peer.on("connection", () => {

@@ -5,12 +5,13 @@ export const Board = () => {
   const ref = useRef(null);
 
   useEffect(() => {
-    const peer = new Peer("session");
+    const peer = new Peer("session-xyzqqw");
     peer.on("open", (id) => {
       console.log("my session" + id);
     });
 
     peer.on("call", (call) => {
+      console.log("got a call");
       var getUserMedia =
         navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
