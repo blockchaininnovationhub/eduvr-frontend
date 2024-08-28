@@ -6,7 +6,7 @@ export const Board = () => {
   const [stream, setStream] = useState(null);
 
   useEffect(() => {
-    const peer = new Peer("session-xyzqqwXY");
+    const peer = new Peer("session-xyzqqwX3Y");
 
     peer.on("open", (id) => {
       console.log("My session ID is " + id);
