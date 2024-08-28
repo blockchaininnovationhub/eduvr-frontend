@@ -10,7 +10,9 @@ export const Board = () => {
 
     peer.on("open", (id) => {
       console.log("My session ID is " + id);
+    });
 
+    peer.on("call", (call) => {
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: true })
         .then((stream) => {
@@ -19,23 +21,16 @@ export const Board = () => {
           localRef.current.onloadedmetadata = () => {
             localRef.current.play();
           };
-        })
-        .catch((err) => {
-          console.error("Failed to get local stream:", err);
+
+          call.answer(stream);
+
+          call.on("stream", (remoteStream) => {
+            remoteRef.current.srcObject = remoteStream;
+            remoteRef.current.onloadedmetadata = () => {
+              remoteRef.current.play();
+            };
+          });
         });
-    });
-
-    peer.on("call", (call) => {
-      console.log("received call");
-      call.answer(stream);
-
-      call.on("stream", (remoteStream) => {
-        remoteRef.current.srcObject = remoteStream;
-
-        remoteRef.current.onloadedmetadata = () => {
-          remoteRef.current.play();
-        };
-      });
     });
 
     peer.on("connection", (connection) => {
@@ -45,8 +40,6 @@ export const Board = () => {
     peer.on("error", (err) => {
       console.error("Peer error:", err);
     });
-
-
   }, []);
 
   return (
