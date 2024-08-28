@@ -73,7 +73,9 @@ export const StudentBoard = () => {
         onClick={() => {
           call("session-universal12");
         }}
-      ></button>
+      >
+        Call
+      </button>
     </div>
   );
 };
