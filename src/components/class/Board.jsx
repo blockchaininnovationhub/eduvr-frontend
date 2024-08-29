@@ -6,7 +6,8 @@ export const Board = () => {
   const remoteRef = useRef(null);
 
   useEffect(() => {
-    const peer = new Peer("session-universal12XZyS");
+    const sessionId = prompt("Please enter session id");
+    const peer = new Peer(sessionId);
 
     peer.on("open", (id) => {
       console.log("My session ID is " + id);
