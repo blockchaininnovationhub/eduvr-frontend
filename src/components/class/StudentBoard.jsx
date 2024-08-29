@@ -9,36 +9,28 @@ export const StudentBoard = () => {
   const call = (remotePeerId) => {
     console.log("Calling " + remotePeerId);
 
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        localRef.current.srcObject = stream;
+    const emptyStream = new MediaStream();
 
-        localRef.current.onloadedmetadata = () => {
-          localRef.current.play();
-        };
+    const call = currentPeer.current.call(remotePeerId, emptyStream);
 
-        const call = currentPeer.current.call(remotePeerId, stream);
+    console.log(call);
 
-        console.log(call);
+    call.on("stream", (remoteStream) => {
+      console.log("Received stream");
+      remoteRef.current.srcObject = remoteStream;
 
-        call.on("stream", (remoteStream) => {
-          console.log("Received stream");
-          remoteRef.current.srcObject = remoteStream;
+      remoteRef.current.onloadedmetadata = () => {
+        remoteRef.current.play();
+      };
+    });
 
-          remoteRef.current.onloadedmetadata = () => {
-            remoteRef.current.play();
-          };
-        });
+    call.on("close", () => {
+      console.log("Call ended");
+    });
 
-        call.on("close", () => {
-          console.log("Call ended");
-        });
-
-        call.on("error", (err) => {
-          console.error("Call error:", err);
-        });
-      });
+    call.on("error", (err) => {
+      console.error("Call error:", err);
+    });
   };
 
   useEffect(() => {
