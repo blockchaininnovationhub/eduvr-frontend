@@ -1,9 +1,41 @@
 import { useEffect, useRef, useState } from "react";
 import Peer from "peerjs";
+import { createEmptyMediaStream } from "@/utils/stream";
 
 export const Board = () => {
   const localRef = useRef(null);
-  const [stream, setStream] = useState(null);
+  const [callStates, setCallStates] = useState([]);
+  const [stream, setStream] = useState(createEmptyMediaStream());
+
+  const shareScreen = () => {
+    navigator.mediaDevices
+      .getDisplayMedia({ video: true, audio: true })
+      .then((stream) => {
+        localRef.current.srcObject = stream;
+
+        localRef.current.onloadedmetadata = () => {
+          localRef.current.play();
+        };
+
+        setStream(stream);
+        callStates.forEach((callState, _) => {
+          callState.peerConnection.getSenders().forEach((sender) => {
+            if (
+              sender.track.kind === "audio" &&
+              stream.getAudioTracks().length > 0
+            ) {
+              sender.replaceTrack(stream.getAudioTracks()[0]);
+            }
+            if (
+              sender.track.kind === "video" &&
+              stream.getVideoTracks().length > 0
+            ) {
+              sender.replaceTrack(stream.getVideoTracks()[0]);
+            }
+          });
+        });
+      });
+  };
 
   useEffect(() => {
     const sessionId = prompt("Please enter session id");
@@ -14,17 +46,8 @@ export const Board = () => {
     });
 
     peer.on("call", (call) => {
-      navigator.mediaDevices
-        .getDisplayMedia({ video: true, audio: true })
-        .then((stream) => {
-          localRef.current.srcObject = stream;
-
-          localRef.current.onloadedmetadata = () => {
-            localRef.current.play();
-          };
-
-          call.answer(stream);
-        });
+      callStates.push(call);
+      call.answer(stream);
     });
 
     peer.on("connection", (connection) => {
@@ -40,9 +63,13 @@ export const Board = () => {
     <div className="w-[1700px] h-[415px] flex flex-row relative overflow-y-auto bg-slate-900">
       <video
         ref={localRef}
-        className="w-full h-full object-cover"
+        className="w-1/2 h-full object-cover"
         controls
       ></video>
+
+      <button className="bg-red-500" onClick={shareScreen}>
+        shareScreen
+      </button>
     </div>
   );
 };
