@@ -44,13 +44,13 @@ const Login = () => {
         </div>
       </div>
       <div className="w-full h-screen min-h-screen flex flex-col items-center justify-center overflow-hidden _Container p-6">
-        <div className="flex flex-col md:flex-row justify-center gap-y-6 md:gap-y-0 gap-x-8 w-full">
+        <div className="flex flex-col md:flex-row justify-center gap-y-6 md:gap-y-0 gap-x-8 w-full items-center">
           <div className="pr-10 max-w-sm">
             <h2 className="text-4xl font-bold">
               Connect to <br /> EduVr classroom
             </h2>
             <p className="mt-4 text-base">
-              if you don't have an account you can <br />{" "}
+              if you don't have a passport you can <br />{" "}
               <Link href="/signup" className="text-blue-600">
                 Register here
               </Link>
@@ -68,7 +68,7 @@ const Login = () => {
           </div>
           <div className="max-w-sm flex-1">
             <section className="w-full flex justify-center">
-              <div className="w-full h-[400px]">
+              <div className="w-full min-h-10 h-[400px]">
                 <StructureSchool />
               </div>
             </section>

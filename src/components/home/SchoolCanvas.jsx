@@ -9,7 +9,7 @@ import Snowlayout from "@/components/models/Colourd_scene";
 const SchoolCanvas = () => {
     return (
         <mesh>
-            <Environment preset="sunset" />
+            <Environment files="/preset/venice_sunset_1k.hdr" />
             <hemisphereLight intensity={0.15} groundColor="red" />
             <pointLight intensity={1} />
             <Snowlayout scale={3} rotation={[-angleToRadians(7.8), angleToRadians(200), 0]} position={[0.05, -0.22, 0]} />

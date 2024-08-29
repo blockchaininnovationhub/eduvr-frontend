@@ -1,13 +1,14 @@
 "use client";
 import { CameraControls, Environment, Html } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Students } from "./Students";
+import { Students } from "@/components/class/Students";
 import { Teacher } from "../Teacher";
 import { degToRad } from "three/src/math/MathUtils";
-import { Navbar } from "../Nav";
+import { Navbar } from "@/components/Nav";
 import { StudentBoard } from "./StudentBoard";
 import ClassRooomStructure from "@/components/class/ClassStructure";
 import { useState } from "react";
+import { Toaster } from "sonner";
 
 const Classroom = () => {
   const Camerapositions = [
@@ -57,7 +58,7 @@ const Classroom = () => {
       >
         {/* <OrbitControls /> */}
         <CameraManager />
-        <Environment preset="sunset" />
+        <Environment files="/preset/venice_sunset_1k.hdr" />
         <Students />
         <Html
           position={[-0.0793, 0.175, -3]}
@@ -69,13 +70,13 @@ const Classroom = () => {
         >
           <StudentBoard />
         </Html>
-
         <ambientLight intensity={0.8} color="black" />
         <ClassRooomStructure
           position={[4.1, -1.5, -1.5]}
           rotation={[0, Math.PI / 2, 0]}
         />
       </Canvas>
+      <Toaster />
     </>
   );
 };

@@ -5,9 +5,10 @@ import Link from "next/link";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 
-import StructureSchoolPreview from "@/components/common/SchoolPreview";
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
+
+import { Loader2 } from "lucide-react";
 
 import {
   createCall,
@@ -35,6 +36,11 @@ const PickSeat: React.FC<Props> = ({ callId }) => {
   const chairs = useMemo(() => {
     return Array.from({ length: 32 }, (_, index) => index);
   }, []);
+
+  const avatars = [
+    { src: "/avatar/default-0.png", id: 0 },
+    { src: "/avatar/default-1.png", id: 1 }
+  ];
 
   useEffect(() => {
     const fetchAvailableSeats = async () => {
@@ -84,12 +90,17 @@ const PickSeat: React.FC<Props> = ({ callId }) => {
   const renderChairs = useMemo(() => {
     return chairs.map((index) => {
       const isAvailable = availableSeats.includes(index);
-
+      const isPicked = index === pickedSeat;
+  
       return (
         <div
           key={index}
-          className={`w-7 h-7 border rounded-sm flex items-center justify-center hover:opacity-40 available_chair ${
-            isAvailable ? "available_chair_success" : "chosen_chair"
+          className={`w-7 h-7 border rounded-sm flex items-center justify-center hover:opacity-40 ${
+            isAvailable
+              ? isPicked
+                ? "available_chair picked_chair"
+                : "available_chair_success"
+              : "chosen_chair"
           }`}
           onClick={() => setPickedSeat(index)}
         >
@@ -105,7 +116,7 @@ const PickSeat: React.FC<Props> = ({ callId }) => {
         </div>
       );
     });
-  }, [availableSeats]);
+  }, [availableSeats, pickedSeat]); 
 
   return (
     <>
@@ -118,40 +129,47 @@ const PickSeat: React.FC<Props> = ({ callId }) => {
       <div className="w-full h-screen min-h-screen flex flex-col items-center justify-center overflow-hidden _Container p-6">
         <div className="flex flex-col md:flex-row justify-center gap-y-6 md:gap-y-0 gap-x-8 w-full py-20">
           <div className="pr-10 max-w-sm">
-            <h2 className="text-4xl font-bold">Select a seat</h2>
+            <h2 className="text-4xl font-bold">Select a seat and Avatar</h2>
             <p className="mt-4 text-base">
               Select an available seat to fully immerse yourself in the class
               experience.
             </p>
-            <div className="flex">
-              <div className="grid grid-cols-5 mt-5 gap-3">{renderChairs}</div>
-            </div>
             <div className="w-full flex flex-col mt-4">
               <p className="mb-2 text-sm font-bold">Select Avatar</p>
               <div className="flex flex-row gap-2">
-                <Image
-                  src="/avatar/default-0.png"
-                  width={300}
-                  height={200}
-                  className="w-[70px] rounded-md shadow-lg hover:opacity-60 transition-all"
-                  alt="avatar"
-                  onClick={() => setSelectedAvatar(0)}
-                />
-                <Image
-                  src="/avatar/default-1.png"
-                  width={300}
-                  height={200}
-                  className="w-[70px] rounded-md shadow-lg hover:opacity-60 transition-all"
-                  alt="avatar"
-                  onClick={() => setSelectedAvatar(1)}
-                />
+                {avatars.map(({ src, id }) => (
+                  <div
+                    key={id}
+                    className="p-1 bg-white shadow-xl rounded-md relative"
+                  >
+                    <Image
+                      src={src}
+                      width={300}
+                      height={200}
+                      className="w-[60px] rounded-md hover:opacity-30 transition-all"
+                      alt="avatar"
+                      onClick={() => setSelectedAvatar(id)}
+                    />
+                    <div
+                      className={`w-full h-full bg-blue-200/70 absolute top-0 left-0 rounded-md ${selectedAvatar === id ? '' : 'hidden'}`}
+                    ></div>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="mt-4">
-              <Button onClick={handleSubmit}>Submit</Button>
+              <Button disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+              </Button>
+              <Button onClick={handleSubmit}>Join ClassRoom</Button>
             </div>
           </div>
-          <div className="max-w-sm flex-1"></div>
+          <div className="max-w-sm flex-1">
+            <div className="flex">
+              <div className="grid grid-cols-5 mt-5 gap-3 ">{renderChairs}</div>
+            </div>
+          </div>
         </div>
         <Toaster />
       </div>

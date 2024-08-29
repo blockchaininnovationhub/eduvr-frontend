@@ -75,7 +75,7 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-xs text-muted-foreground">
-                      +25% from last week
+                      Links You Have Created in Total
                     </div>
                   </CardContent>
                 </Card>
@@ -86,11 +86,6 @@ export default function Dashboard() {
                       {stats.activeCalls}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="text-xs text-muted-foreground">
-                      +10% from last month
-                    </div>
-                  </CardContent>
                 </Card>
               </div>
               <LinkTable />

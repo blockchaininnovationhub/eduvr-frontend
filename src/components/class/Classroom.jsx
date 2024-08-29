@@ -1,14 +1,15 @@
 "use client";
-import { CameraControls, Environment, Html } from "@react-three/drei";
+import { CameraControls, Environment, Html, Preload } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Students } from './Students';  
+import { Students } from '@/components/class/Students';  
 import { Teacher } from "../Teacher";
 import { degToRad } from "three/src/math/MathUtils";
-import { Navbar } from "../Nav";
+import { Navbar } from "@/components/Nav";
 import { Board } from "./Board";
 import ClassRooomStructure from "./ClassStructure";
-import { useState } from "react";
-
+import { Suspense, useState } from "react";
+import CanvasLoader from "../CanvasLoader";
+import { Toaster } from "sonner";
 
 const Classroom = () => {
     const Camerapositions = [
@@ -23,32 +24,34 @@ const Classroom = () => {
     
     return(
         <>
-            <div className="w-12 z-10 h-full right-10 fixed bottom-0 flex flex-col">
-                <Navbar />
-            </div>
-            <Canvas
-                camera={{ 
-                    position: [0, 0, -3], // Default to first position
-                }}
-            >
-                {/* <OrbitControls /> */}
-                <CameraManager />
-                <Environment preset="sunset" />
-                <Students />
-                <Html 
-                    position={[-0.0793, 0.175, -3]} 
-                    transform 
-                    distanceFactor={1.25} 
-                    zIndexRange={[0, -1]}
-                    occlude={false}
-                    followCamera={false}
+                <div className="w-12 z-10 h-full right-10 fixed bottom-0 flex flex-col">
+                    <Navbar />
+                </div>
+                <Canvas
+                    camera={{ 
+                        position: [0, 0, -3], // Default to first position
+                    }}
                 >
-                    <Board />
-                </Html>
-    
-                <ambientLight intensity={0.8} color="black" />
-                <ClassRooomStructure position={[4.1, -1.5, -1.5]} rotation={[0, Math.PI / 2, 0]} />
-            </Canvas>
+                    <Suspense fallback={<CanvasLoader />}>
+                        <CameraManager />
+                        <Environment files="/preset/adams_place_bridge_1k.hdr" />
+                        <Students />
+                        <Html 
+                            position={[-0.0793, 0.175, -3]} 
+                            transform 
+                            distanceFactor={1.25} 
+                            zIndexRange={[0, -1]}
+                            occlude={false}
+                            followCamera={false}
+                        >
+                            <Board />
+                        </Html>
+                        <ambientLight intensity={0.5} color="black" />
+                        <ClassRooomStructure position={[4.1, -1.5, -1.5]} rotation={[0, Math.PI / 2, 0]} />
+                    </Suspense>
+                    <Preload all />
+                </Canvas> 
+                <Toaster />
         </>
     );
 }

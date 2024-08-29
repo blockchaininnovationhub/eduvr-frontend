@@ -9,7 +9,7 @@ import StructureSchool from "@/components/models/Calligraphy_school";
 const LayoutCanvas = () => {
     return (
         <mesh>
-            <Environment preset="sunset" />
+           <Environment files="/preset/venice_sunset_1k.hdr" />
             <hemisphereLight intensity={0.15} groundColor="black" />
             <pointLight intensity={1} />
             <StructureSchool rotation={[-angleToRadians(10), angleToRadians(180), 0]} position={[0, -0.36, 0.01]} />

@@ -5,14 +5,59 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
-  
+} from "@/components/ui/dropdown-menu"
+
+import {
+    createCall,
+    createCallParticipant,
+    deactivateCall,
+    getAvailablePositions,
+    getCallParticipants,
+    getMyCalls,
+    getStats,
+} from "@/utils/call";
+
+import { useRouter } from "next/router";
+import { useMemo } from "react";
+
+import { toast } from "sonner";
+import ShareLink from "./class/ShareLink";
 
 export const Navbar = () => {
+
+    const router = useRouter();
+    const { id } = router.query;
+
+    const parsedId = useMemo(() : string => {
+        if (!id) return "";
+    
+        let _id: string;
+    
+        if (typeof id === "object") {
+          _id = id[0];
+        } else {
+          _id = id;
+        }
+    
+        return _id;
+      }, [id])
+
+
+    const EndCall = async () => {
+        try {
+            await deactivateCall(parsedId);
+            router.push("/callend");
+        } catch (error : any) {
+            toast("Error", {
+                description: error?.response?.data?.message,
+            });
+        }
+    }
+    
     return(
         <>
             <div className="text-xs mt-auto flex gap-y-3 py-8 flex-col-reverse">
-                    <div className="w-12 h-12 rounded-full glass_bg flex justify-center items-center">
+                    <div className="w-12 h-12 rounded-full glass_bg flex justify-center items-center" onClick={EndCall}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="w-6 h-6 text-red-600"
@@ -47,9 +92,10 @@ export const Navbar = () => {
                             <path d="M10 13l5-3-5-3z"></path>
                         </svg>
                     </div>
+                    <ShareLink />
                     <DropdownMenu>
                         <DropdownMenuTrigger>
-                            <div className="w-12 h-12 rounded-full glass_bg flex justify-center items-center">
+                            <div className="w-12 h-12 rounded-full glass_bg flex justify-center items-center hidden">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="w-6 h-6 text-slate-700"
@@ -65,7 +111,6 @@ export const Navbar = () => {
                             <DropdownMenuItem>Participant List</DropdownMenuItem>
                             <DropdownMenuItem>Reaction</DropdownMenuItem>
                             <DropdownMenuItem>Record</DropdownMenuItem>
-                            <DropdownMenuItem>Invite Participant</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

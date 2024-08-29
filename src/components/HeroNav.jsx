@@ -13,6 +13,8 @@ import {
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
+import Link from "next/link";
+
 const HeroNav = () => {
   return (
     <div className="flex flex-col w-full py-2">
@@ -62,12 +64,12 @@ const HeroNav = () => {
                 </NavigationMenuList>
               </NavigationMenu>
             </li>
-            <a href="#">
+            <Link href="/class">
               <li>ClassRoom</li>
-            </a>
-            <a href="#">
-              <li>Feedback</li>
-            </a>
+            </Link>
+            <Link href="/login">
+              <li>Login</li>
+            </Link>
           </ul>
         </div>
         <ConnectButton accountStatus="address" />

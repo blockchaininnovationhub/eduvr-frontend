@@ -10,7 +10,7 @@ import { degToRad } from "three/src/math/MathUtils";
 const LayoutCanvas = () => {
     return (
         <mesh>
-            <Environment preset="sunset" />
+            <Environment files="/preset/venice_sunset_1k.hdr" />
             <hemisphereLight intensity={0.15} groundColor="black" />
             <pointLight intensity={1} />
             <StructureSchoolPreview rotation={[0, -Math.PI / 2, 0]} position={[-4.5, -1.5, -1.5]} />
