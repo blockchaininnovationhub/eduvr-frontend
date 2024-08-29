@@ -6,7 +6,7 @@ export const Board = () => {
   const remoteRef = useRef(null);
 
   useEffect(() => {
-    const peer = new Peer("session-universal12");
+    const peer = new Peer("session-universal12XZ");
 
     peer.on("open", (id) => {
       console.log("My session ID is " + id);
@@ -43,17 +43,22 @@ export const Board = () => {
   }, []);
 
   return (
-    <div className="w-[1700px] h-[415px] flex flex-row overflow-y-auto bg-slate-900">
+    <div className="w-[1700px] h-[415px] flex flex-row relative overflow-y-auto bg-slate-900">
       <video
         ref={localRef}
-        className="w-1/2 h-full object-cover"
+        className="w-1/3 h-full object-cover"
         controls
       ></video>
       <video
         ref={remoteRef}
-        className="w-1/2 h-full object-cover"
+        src="/Venice_5.mp4"
+        className="w-1/3 h-full object-cover"
         controls
-        autoPlay
+      ></video>
+      <video
+        src="/Venice_5.mp4"
+        className="w-1/3 h-full object-cover"
+        controls
       ></video>
     </div>
   );
