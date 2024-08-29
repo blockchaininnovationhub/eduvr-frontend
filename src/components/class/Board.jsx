@@ -24,8 +24,6 @@ export const Board = () => {
           };
 
           call.answer(stream);
-
-          call.on("stream", () => {});
         });
     });
 
