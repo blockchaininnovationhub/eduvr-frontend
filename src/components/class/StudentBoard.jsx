@@ -22,11 +22,11 @@ export const StudentBoard = () => {
 
         call.on("stream", (remoteStream) => {
           console.log("Received stream");
-          // remoteRef.current.srcObject = remoteStream;
+          remoteRef.current.srcObject = remoteStream;
 
-          // remoteRef.current.onloadedmetadata = () => {
-          //   remoteRef.current.play();
-          // };
+          remoteRef.current.onloadedmetadata = () => {
+            remoteRef.current.play();
+          };
         });
 
         call.on("close", () => {
@@ -44,6 +44,7 @@ export const StudentBoard = () => {
 
     peer.on("open", (id) => {
       console.log("My session ID: " + id);
+      call("session-universal12");
     });
 
     peer.on("connection", () => {
@@ -65,6 +66,7 @@ export const StudentBoard = () => {
         controls
       ></video>
       <video
+        ref={remoteRef}
         src="/Venice_5.mp4"
         className="w-1/3 h-full object-cover"
         controls
@@ -74,13 +76,6 @@ export const StudentBoard = () => {
         className="w-1/3 h-full object-cover"
         controls
       ></video>
-      <button
-        onClick={() => {
-          call("session-universal12");
-        }}
-      >
-        Call
-      </button>
     </div>
   );
 };
