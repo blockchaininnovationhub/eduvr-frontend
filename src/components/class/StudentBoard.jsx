@@ -2,55 +2,43 @@ import { useEffect, useRef } from "react";
 import Peer from "peerjs";
 
 export const StudentBoard = () => {
+  const localRef = useRef(null);
   const remoteRef = useRef(null);
   const currentPeer = useRef(null);
 
   const call = (remotePeerId) => {
     console.log("Calling " + remotePeerId);
 
-    const emptyStream = new MediaStream();
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        localRef.current.srcObject = stream;
 
-    const videoTrack = new MediaStreamTrack({
-      kind: "video",
-      label: "dummy-video",
-      enabled: true,
-      muted: true,
-      readyState: "live",
-      id: "video-dummy-id",
-    });
+        localRef.current.onloadedmetadata = () => {
+          localRef.current.play();
+        };
 
-    const audioTrack = new MediaStreamTrack({
-      kind: "audio",
-      label: "dummy-audio",
-      enabled: true,
-      muted: true,
-      readyState: "live",
-      id: "audio-dummy-id",
-    });
+        const call = currentPeer.current.call(remotePeerId, stream);
 
-    emptyStream.addTrack(videoTrack);
-    emptyStream.addTrack(audioTrack);
+        console.log(call);
 
-    const call = currentPeer.current.call(remotePeerId, emptyStream);
+        call.on("stream", (remoteStream) => {
+          console.log("Received stream");
+          remoteRef.current.srcObject = remoteStream;
 
-    console.log(call);
+          remoteRef.current.onloadedmetadata = () => {
+            remoteRef.current.play();
+          };
+        });
 
-    call.on("stream", (remoteStream) => {
-      console.log("Received stream");
-      remoteRef.current.srcObject = remoteStream;
+        call.on("close", () => {
+          console.log("Call ended");
+        });
 
-      remoteRef.current.onloadedmetadata = () => {
-        remoteRef.current.play();
-      };
-    });
-
-    call.on("close", () => {
-      console.log("Call ended");
-    });
-
-    call.on("error", (err) => {
-      console.error("Call error:", err);
-    });
+        call.on("error", (err) => {
+          console.error("Call error:", err);
+        });
+      });
   };
 
   useEffect(() => {
@@ -75,7 +63,11 @@ export const StudentBoard = () => {
 
   return (
     <div className="w-[1700px] h-[415px] flex flex-row relative overflow-y-auto bg-slate-900">
-      <video className="w-1/3 h-full object-cover" controls></video>
+      <video
+        ref={localRef}
+        className="w-1/3 h-full object-cover"
+        controls
+      ></video>
       <video
         ref={remoteRef}
         src="/Venice_5.mp4"
