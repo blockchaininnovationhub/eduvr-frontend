@@ -18,7 +18,7 @@ export const StudentBoard = () => {
           localRef.current.play();
         };
 
-        const call = currentPeer.current.call(remotePeerId, stream);
+        const call = currentPeer.current.call(remotePeerId);
 
         call.on("stream", (remoteStream) => {
           console.log("Received stream");
