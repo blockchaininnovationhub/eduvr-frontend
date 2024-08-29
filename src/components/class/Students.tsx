@@ -124,30 +124,32 @@ export const Students = () => {
 
   return (
     <>
-        {seatingPosition && seatingPosition.map((data, index) => {
-            const characterPosition = data.avatar === 0
-                ? positions[data.position]
-                : data.avatar === 1
-                ? positionsfemale[data.position]
-                : [0, 0, 0];
+      {seatingPosition &&
+        seatingPosition.map((data: any, index) => {
+          const characterPosition =
+            data.avatar === 0
+              ? positions[data.position]
+              : data.avatar === 1
+              ? positionsfemale[data.position]
+              : [0, 0, 0];
 
-            const componentToRender =
-                data.avatar === 0
-                    ? cachedComponents.male
-                    : data.avatar === 1
-                    ? cachedComponents.female
-                    : null;
+          const componentToRender =
+            data.avatar === 0
+              ? cachedComponents.male
+              : data.avatar === 1
+              ? cachedComponents.female
+              : null;
 
-            return componentToRender ? (
-                <React.Fragment key={index}>
-                    {React.cloneElement(componentToRender, {
-                        position: characterPosition,
-                        rotation: [0, Math.PI, 0],
-                    })}
-                </React.Fragment>
-            ) : (
-                <React.Fragment key={index}>null</React.Fragment>
-            );
+          return componentToRender ? (
+            <React.Fragment key={index}>
+              {React.cloneElement(componentToRender, {
+                position: characterPosition,
+                rotation: [0, Math.PI, 0],
+              })}
+            </React.Fragment>
+          ) : (
+            <React.Fragment key={index}>null</React.Fragment>
+          );
         })}
     </>
   );
