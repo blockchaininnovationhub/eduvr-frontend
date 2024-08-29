@@ -1,8 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Peer from "peerjs";
 
 export const Board = () => {
   const localRef = useRef(null);
+  const [stream, setStream] = useState(null);
 
   useEffect(() => {
     const sessionId = prompt("Please enter session id");
@@ -14,7 +15,7 @@ export const Board = () => {
 
     peer.on("call", (call) => {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: true })
+        .getDisplayMedia({ video: true, audio: true })
         .then((stream) => {
           localRef.current.srcObject = stream;
 
