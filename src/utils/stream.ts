@@ -1,4 +1,4 @@
-const createEmptyMedia = () => {
+export const createEmptyMediaStream = () => {
   return new MediaStream([
     createEmptyAudioTrack(),
     createEmptyVideoTrack({ width: 640, height: 480 }),

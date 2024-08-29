@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Peer from "peerjs";
+import { createEmptyMediaStream } from "@/utils/stream";
 
 export const StudentBoard = () => {
   const remoteRef = useRef(null);
@@ -8,7 +9,10 @@ export const StudentBoard = () => {
   const call = (remotePeerId) => {
     console.log("Calling " + remotePeerId);
 
-    const call = currentPeer.current.call(remotePeerId, createEmptyMedia());
+    const call = currentPeer.current.call(
+      remotePeerId,
+      createEmptyMediaStream()
+    );
 
     call.on("stream", (remoteStream) => {
       console.log("Received stream");
