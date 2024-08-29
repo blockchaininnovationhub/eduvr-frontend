@@ -3,7 +3,6 @@ import Peer from "peerjs";
 
 export const Board = () => {
   const localRef = useRef(null);
-  const remoteRef = useRef(null);
 
   useEffect(() => {
     const sessionId = prompt("Please enter session id");
@@ -40,18 +39,7 @@ export const Board = () => {
     <div className="w-[1700px] h-[415px] flex flex-row relative overflow-y-auto bg-slate-900">
       <video
         ref={localRef}
-        className="w-1/3 h-full object-cover"
-        controls
-      ></video>
-      <video
-        ref={remoteRef}
-        src="/Venice_5.mp4"
-        className="w-1/3 h-full object-cover"
-        controls
-      ></video>
-      <video
-        src="/Venice_5.mp4"
-        className="w-1/3 h-full object-cover"
+        className="w-full h-full object-cover"
         controls
       ></video>
     </div>

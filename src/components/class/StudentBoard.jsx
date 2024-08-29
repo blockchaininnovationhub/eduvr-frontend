@@ -57,12 +57,7 @@ export const StudentBoard = () => {
       <video
         ref={remoteRef}
         src="/Venice_5.mp4"
-        className="w-1/3 h-full object-cover"
-        controls
-      ></video>
-      <video
-        src="/Venice_5.mp4"
-        className="w-1/3 h-full object-cover"
+        className="w-full h-full object-cover"
         controls
       ></video>
     </div>
