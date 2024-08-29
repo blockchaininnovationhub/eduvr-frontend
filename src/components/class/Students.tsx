@@ -14,6 +14,7 @@ import {
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import useLoading from "@/hooks/useLoading";
 
 export const Students = () => {
   const positions = [
@@ -83,6 +84,8 @@ export const Students = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  const { isLoading, stopLoading } = useLoading(true);
+
   const parsedId = useMemo((): string => {
     if (!id) return "";
 
@@ -97,7 +100,25 @@ export const Students = () => {
     return _id;
   }, [id]);
 
-  // Cache the components using useMemo to avoid re-loading of models
+
+  const [seatingPosition, setSeatingPosition] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const participants = await getCallParticipants(parsedId);
+            setSeatingPosition(participants);
+        } catch (error) {
+            console.error("Failed to fetch participants:", error);
+        }
+    };
+    fetchData();
+
+    const intervalId = setInterval(fetchData, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [parsedId]);
+
   const cachedComponents = useMemo(() => {
     return {
       male: <MaleCharacter />,
@@ -105,34 +126,66 @@ export const Students = () => {
     };
   }, []);
 
-  const [seatingPosition, setSeatingPosition] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const participants = await getCallParticipants(parsedId);
-        setSeatingPosition(participants);
-      } catch (error) {
-        console.error("Failed to fetch participants:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  console.log(seatingPosition);
-
   return (
     <>
-      {seatingPosition &&
+      {seatingPosition.map((data : any, index) => {
+                const characterPosition = 
+                  data.avatar === "0"
+                  ? positions[data.position] 
+                  : data.avatar === "1" 
+                  ? positionsfemale[data.position] 
+                  : [0, 0, 0];
+
+                const componentToRender =
+                    data.avatar === "0"
+                        ? cachedComponents.male
+                        : data.avatar === "1"
+                        ? cachedComponents.female
+                        : null;
+
+                return componentToRender ? (
+                    <React.Fragment key={index}>
+                        {React.cloneElement(componentToRender, {
+                            position: characterPosition,
+                            rotation: [0, Math.PI, 0],
+                        })}
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment key={index}>null</React.Fragment>
+                );
+      })}
+      {/* {!isLoading &&
         seatingPosition.map((data: any, index) => {
+          // const characterPosition =
+          //   data.avatar === 0
+          //     ? positions[data.position]
+          //     : data.avatar === 1
+          //     ? positionsfemale[data.position]
+          //     : [0, 0, 0];
+
+          // const componentToRender =
+          //   data.avatar === 0
+          //     ? cachedComponents.male
+          //     : data.avatar === 1
+          //     ? cachedComponents.female
+          //     : null;
+
+          // return componentToRender ? (
+          //   <React.Fragment key={index}>
+          //     {React.cloneElement(componentToRender, {
+          //       position: characterPosition,
+          //       rotation: [0, Math.PI, 0],
+          //     })}
+          //   </React.Fragment>
+          // ) : (
+          //   <React.Fragment key={index}>null</React.Fragment>
+          // );
           const characterPosition =
             data.avatar === 0
               ? positions[data.position]
               : data.avatar === 1
               ? positionsfemale[data.position]
-              : [0, 0, 0];
-
+              : null || [0, 0, 0];
           const componentToRender =
             data.avatar === 0
               ? cachedComponents.male
@@ -150,7 +203,7 @@ export const Students = () => {
           ) : (
             <React.Fragment key={index}>null</React.Fragment>
           );
-        })}
+      })} */}
     </>
   );
 };
