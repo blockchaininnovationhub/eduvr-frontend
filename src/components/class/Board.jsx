@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import Peer from "peerjs";
 import { createEmptyMediaStream } from "@/utils/stream";
 
@@ -7,7 +7,7 @@ export const Board = ({ sessionId }) => {
   const [callStates, setCallStates] = useState([]);
   const [stream, setStream] = useState(createEmptyMediaStream());
 
-  const getStream = useMemo(() => {
+  const getStream = useCallback(() => {
     return stream;
   }, [stream]);
 
