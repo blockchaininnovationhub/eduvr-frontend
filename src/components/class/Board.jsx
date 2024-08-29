@@ -43,7 +43,7 @@ export const Board = () => {
   }, []);
 
   return (
-    <div className="w-[1700px] h-[415px] flex flex-col overflow-y-auto bg-slate-900">
+    <div className="w-[1700px] h-[415px] flex flex-row overflow-y-auto bg-slate-900">
       <video
         ref={localRef}
         className="w-1/2 h-full object-cover"
