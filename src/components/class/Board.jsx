@@ -6,7 +6,7 @@ export const Board = () => {
   const remoteRef = useRef(null);
 
   useEffect(() => {
-    const peer = new Peer("session-universal12XZ");
+    const peer = new Peer("session-universal12XZy");
 
     peer.on("open", (id) => {
       console.log("My session ID is " + id);
@@ -24,11 +24,8 @@ export const Board = () => {
 
           call.answer(stream);
 
-          call.on("stream", (remoteStream) => {
-            remoteRef.current.srcObject = remoteStream;
-            remoteRef.current.onloadedmetadata = () => {
-              remoteRef.current.play();
-            };
+          call.on("stream", () => {
+            console.log("stream received");
           });
         });
     });
