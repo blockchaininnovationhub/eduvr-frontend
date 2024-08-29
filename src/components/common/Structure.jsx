@@ -27,7 +27,7 @@ const SchoolCav = () => {
             <Suspense fallback={<CanvasLoader />}>
                 <OrbitControls
                     enableZoom={false}
-                    maxPolarAngle={angleToRadians(90)}
+                    maxPolarAngle={angleToRadians(110)}
                     minPolarAngle={angleToRadians(40)}
                     minAzimuthAngle={angleToRadians(0)}
                     maxAzimuthAngle={angleToRadians(270)}

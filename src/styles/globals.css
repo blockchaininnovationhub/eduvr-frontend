@@ -272,3 +272,13 @@
   display: inline-block;
   margin: 0 16px;
 }
+@media (max-width: 767px) {
+  .showNav{
+    display: flex;
+    @apply transition-all;
+  }
+  .hideNav{
+    display: none;
+    @apply transition-all;
+  }
+}

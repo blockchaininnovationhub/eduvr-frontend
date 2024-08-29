@@ -9,13 +9,27 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "@/components/ui/navigation-menu"
-
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-
+} from "@/components/ui/navigation-menu";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
 
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
+
+import { useState } from "react";
+
 const HeroNav = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   return (
     <div className="flex flex-col w-full py-2">
       <div className="flex flex-row items-center gap-x-5 text-sm px-6 md:px-12 py-2 justify-between">
@@ -27,7 +41,12 @@ const HeroNav = () => {
             className="w-28 object-contain"
             alt="EduVr Logo"
           />
-          <ul className="hidden md:flex flex-row gap-x-5 ml-12 text-slate-800 items-center text-sm font-medium">
+
+          <ul
+            className={`${
+              isMenuOpen ? "showNav" : "hideNav"
+            } bg-[#fff] shadow-2xl md:shadow-none md:bg-transparent w-full px-6 py-6 gap-y-6 md:gap-y-0 absolute left-0 top-[65px] md:top-0 z-50 ml-0 flex flex-col md:w-auto md:relative md:px-0 md:py-0 md:h-auto md:flex-row gap-x-5 md:ml-12 text-slate-800 md:items-center text-sm font-medium`}
+          >
             <li>
               <NavigationMenu>
                 <NavigationMenuList>
@@ -36,7 +55,7 @@ const HeroNav = () => {
                       Mint Passport
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid gap-3 p-2 md:w-[370px] lg:w-[370px] lg:grid-cols-[.75fr_1fr]">
+                      <ul className="grid gap-3 p-2 w-full md:w-[370px] lg:w-[370px] lg:grid-cols-[.75fr_1fr]">
                         <li className="row-span-3">
                           <NavigationMenuLink asChild>
                             <a
@@ -71,6 +90,27 @@ const HeroNav = () => {
               <li>Login</li>
             </Link>
           </ul>
+        </div>
+        <div className="block md:hidden" onClick={toggleMenu}>
+          {isMenuOpen ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-8 h-8 text-slate-800"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-8 h-8 text-slate-800"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
+            </svg>
+          )}
         </div>
         <ConnectButton accountStatus="address" />
       </div>
