@@ -15,9 +15,10 @@ const Class = () => {
   const [call, setCall] = useState<CallProps>({});
   const [profile, setProfile] = useState<any>({});
   const { isLoading, stopLoading } = useLoading(true);
-  const { isLoading: isSeatLoading, stopLoading: stopSeatLoading } = useLoading(true);
+  const { isLoading: isSeatLoading, stopLoading: stopSeatLoading } =
+    useLoading(true);
 
-  const parsedId = useMemo(() : string=> {
+  const parsedId = useMemo((): string => {
     if (!id) return "";
 
     let _id: string;
@@ -29,30 +30,26 @@ const Class = () => {
     }
 
     return _id;
-  }, [id])
+  }, [id]);
 
-  const seat = useMemo(()=> {
+  const seat = useMemo(() => {
+    if (!parsedId) return false;
 
-    if(!parsedId) return false
-
-    const seats = localStorage.getItem('seats')
-    if(!seats) {
-      stopSeatLoading()
-      return false
+    const seats = localStorage.getItem("seats");
+    if (!seats) {
+      stopSeatLoading();
+      return false;
     }
     try {
-      const seatObjects = JSON.parse(seats)
-      stopSeatLoading()
-      return seatObjects[parsedId]
-
+      const seatObjects = JSON.parse(seats);
+      stopSeatLoading();
+      return seatObjects[parsedId];
     } catch (error) {
-      stopSeatLoading()
+      stopSeatLoading();
 
-      return false
+      return false;
     }
-
-
-  }, [parsedId])
+  }, [parsedId]);
 
   const isTeacher = useMemo(() => {
     if (profile && call) {
@@ -60,7 +57,6 @@ const Class = () => {
     }
     return false;
   }, [profile, call]);
-
 
   useEffect(() => {
     if (!id) return;
@@ -99,10 +95,16 @@ const Class = () => {
         {isTeacher ? (
           <AuthMiddleware>
             {" "}
-            <Classroom />
+            <Classroom sessionId={call.session} />
           </AuthMiddleware>
+        ) : !isSeatLoading ? (
+          seat ? (
+            <StudentClassroom sessionId={call.session} />
+          ) : (
+            <PickSeat callId={parsedId} />
+          )
         ) : (
-          !isSeatLoading ? seat ? <StudentClassroom /> : <PickSeat callId={parsedId} /> : <p>still loading</p>
+          <p>still loading</p>
         )}
       </main>
     )

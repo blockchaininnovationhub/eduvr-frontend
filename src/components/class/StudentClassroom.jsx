@@ -10,7 +10,7 @@ import ClassRooomStructure from "@/components/class/ClassStructure";
 import { useState } from "react";
 import { Toaster } from "sonner";
 
-const Classroom = () => {
+const Classroom = ({ sessionId }) => {
   const Camerapositions = [
     [-3.2, 0, 0.55],
     [-1.6, 0, 0.55],
@@ -68,7 +68,7 @@ const Classroom = () => {
           occlude={false}
           followCamera={false}
         >
-          <StudentBoard />
+          <StudentBoard sessionId={sessionId} />
         </Html>
         <ambientLight intensity={0.8} color="black" />
         <ClassRooomStructure

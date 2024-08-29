@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Peer from "peerjs";
 import { createEmptyMediaStream } from "@/utils/stream";
 
-export const StudentBoard = () => {
+export const StudentBoard = ({ sessionId }) => {
   const remoteRef = useRef(null);
   const currentPeer = useRef(null);
 
@@ -37,7 +37,6 @@ export const StudentBoard = () => {
 
     peer.on("open", (id) => {
       console.log("My session ID: " + id);
-      const sessionId = prompt("Please enter session id");
       call(sessionId);
     });
 

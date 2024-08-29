@@ -2,10 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import Peer from "peerjs";
 import { createEmptyMediaStream } from "@/utils/stream";
 
-export const Board = () => {
+export const Board = ({ sessionId }) => {
   const localRef = useRef(null);
   const [callStates, setCallStates] = useState([]);
   const [stream, setStream] = useState(createEmptyMediaStream());
+
+  const getStream = useMemo(() => {
+    return stream;
+  }, [stream]);
 
   const shareScreen = () => {
     navigator.mediaDevices
@@ -38,7 +42,6 @@ export const Board = () => {
   };
 
   useEffect(() => {
-    const sessionId = prompt("Please enter session id");
     const peer = new Peer(sessionId);
 
     peer.on("open", (id) => {
@@ -46,8 +49,8 @@ export const Board = () => {
     });
 
     peer.on("call", (call) => {
-      callStates.push(call);
-      call.answer(stream);
+      setCallStates((prevCallStates) => [...prevCallStates, call]);
+      call.answer(getStream());
     });
 
     peer.on("connection", (connection) => {
