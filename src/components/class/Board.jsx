@@ -6,7 +6,7 @@ export const Board = () => {
   const remoteRef = useRef(null);
 
   useEffect(() => {
-    const peer = new Peer("session-universal12");
+    const peer = new Peer("session-universal12XZ");
 
     peer.on("open", (id) => {
       console.log("My session ID is " + id);

@@ -44,7 +44,7 @@ export const StudentBoard = () => {
 
     peer.on("open", (id) => {
       console.log("My session ID: " + id);
-      call("session-universal12");
+      call("session-universal12XZ");
     });
 
     peer.on("connection", () => {
