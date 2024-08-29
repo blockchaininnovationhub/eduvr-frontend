@@ -10,7 +10,7 @@ export const StudentBoard = () => {
     console.log("Calling " + remotePeerId);
 
     navigator.mediaDevices
-      .getUserMedia({ video: false, audio: false })
+      .getUserMedia({ video: false, audio: true })
       .then((stream) => {
         localRef.current.srcObject = stream;
 
