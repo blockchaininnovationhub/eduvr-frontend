@@ -49,7 +49,9 @@ export const Board = ({ sessionId }) => {
     });
 
     peer.on("call", (call) => {
-      setCallStates((prevCallStates) => [...prevCallStates, call]);
+      const _callStates = callStates;
+      _callStates.push(call);
+      setCallStates(_callStates);
       call.answer(getStream());
     });
 
