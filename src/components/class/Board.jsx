@@ -25,8 +25,11 @@ export const Board = () => {
 
           call.answer(stream);
 
-          call.on("stream", () => {
-            console.log("stream received");
+          call.on("stream", (remoteStream) => {
+            remoteRef.current.srcObject = remoteStream;
+            remoteRef.current.onloadedmetadata = () => {
+              remoteRef.current.play();
+            };
           });
         });
     });
