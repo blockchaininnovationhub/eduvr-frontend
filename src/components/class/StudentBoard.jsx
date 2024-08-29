@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import Peer from "peerjs";
 
 export const StudentBoard = () => {
-  const localRef = useRef(null);
   const remoteRef = useRef(null);
   const currentPeer = useRef(null);
 
@@ -10,6 +9,27 @@ export const StudentBoard = () => {
     console.log("Calling " + remotePeerId);
 
     const emptyStream = new MediaStream();
+
+    const videoTrack = new MediaStreamTrack({
+      kind: "video",
+      label: "dummy-video",
+      enabled: true,
+      muted: true,
+      readyState: "live",
+      id: "video-dummy-id",
+    });
+
+    const audioTrack = new MediaStreamTrack({
+      kind: "audio",
+      label: "dummy-audio",
+      enabled: true,
+      muted: true,
+      readyState: "live",
+      id: "audio-dummy-id",
+    });
+
+    emptyStream.addTrack(videoTrack);
+    emptyStream.addTrack(audioTrack);
 
     const call = currentPeer.current.call(remotePeerId, emptyStream);
 
