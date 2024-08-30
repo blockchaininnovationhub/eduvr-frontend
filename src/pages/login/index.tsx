@@ -11,10 +11,13 @@ import { Loader2 } from "lucide-react";
 
 import StructureSchool from "@/components/common/Structure";
 import { useRouter } from "next/router";
+import { useAccount } from "wagmi";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Login = () => {
   const { login, isLoading, error, message } = useLogin();
   const router = useRouter();
+  const { isConnected } = useAccount();
 
   async function _login(): Promise<any> {
     if (await login()) {
@@ -61,8 +64,10 @@ const Login = () => {
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Please wait
                 </Button>
-              ) : (
+              ) : isConnected ? (
                 <Button onClick={_login}>Sign-In</Button>
+              ) : (
+                <ConnectButton />
               )}
             </div>
           </div>

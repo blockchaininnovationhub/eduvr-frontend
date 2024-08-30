@@ -12,9 +12,11 @@ import { Loader2 } from "lucide-react";
 
 import StructureSchool from "@/components/common/Structure";
 import { useRouter } from "next/router";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Signup = () => {
   const { signup, isLoading, error, message }: any = useSignup();
+  const { isConnected } = useAccount();
 
   const router = useRouter();
 
@@ -63,10 +65,12 @@ const Signup = () => {
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Please wait
                 </Button>
-              ) : (
+              ) : isConnected ? (
                 <Button onClick={_signup} type="submit">
                   Sign-Up{" "}
                 </Button>
+              ) : (
+                <ConnectButton />
               )}
             </div>
           </div>
