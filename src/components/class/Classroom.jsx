@@ -7,9 +7,46 @@ import { degToRad } from "three/src/math/MathUtils";
 import { Navbar } from "@/components/class/Nav";
 import { Board } from "./Board";
 import ClassRooomStructure from "./ClassStructure";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import CanvasLoader from "../CanvasLoader";
 import { Toaster } from "sonner";
+import Image from "next/image";
+
+const IntroOverlay = () => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+    }, 3000);
+
+    // Cleanup function to clear the timeout if the component unmounts
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!isVisible) {
+    return null; // Don't render anything if not visible
+  }
+
+  return (
+    <div className="__intro fixed top-0 left-0 w-full h-full bg-black/70 z-50 flex justify-center items-center">
+      <div className="flex justify-center items-center">
+        <div className="max-w-md text-center flex flex-col items-center px-12">
+          <Image
+            src="/icon/camera_panning.png"
+            width={300}
+            height={300}
+            alt="camera panning"
+            className="w-24 h-24 object-contain opacity-60"
+          />
+          <p className="text-slate-400 text-xl mt-2">
+            You are in 3D view you can pan the camera 360<sup>&#176;</sup>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Classroom = ({ sessionId }) => {
   const Camerapositions = [
@@ -52,6 +89,9 @@ const Classroom = ({ sessionId }) => {
       <div className="w-12 z-10 h-full right-10 fixed bottom-0 flex flex-col">
         <Navbar />
       </div>
+
+      <IntroOverlay />
+
       <Canvas
         camera={{
           position: [0, 0, -3], // Default to first position

@@ -13,6 +13,8 @@ import { useGraph } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { SkeletonUtils } from "three-stdlib";
 
+import { angleToRadians } from "@/utils/angleToRadians";
+
 export default function Model(props) {
   const { scene } = useGLTF("/models/character/female/female-transformed.glb");
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
@@ -309,7 +311,7 @@ export default function Model(props) {
                     <primitive
                       object={nodes.J_Bip_L_UpperArm_067}
                       position={[0, 0.08, 0]}
-                      rotation={[0.122, -0.115, 0.073]}
+                      rotation={[angleToRadians(-50), -0.115, 0.073]}
                     >
                       <primitive
                         object={nodes.J_Bip_L_LowerArm_068}
@@ -482,7 +484,7 @@ export default function Model(props) {
                     <primitive
                       object={nodes.J_Bip_R_UpperArm_091}
                       position={[0, 0.08, 0]}
-                      rotation={[0.122, 0.115, -0.073]}
+                      rotation={[angleToRadians(-50), 0.115, -0.073]}
                     >
                       <primitive
                         object={nodes.J_Bip_R_LowerArm_092}
