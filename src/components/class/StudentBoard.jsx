@@ -58,9 +58,6 @@ export const StudentBoard = ({ sessionId }) => {
         src="/videos/intro.MOV"
         className="w-full h-full object-cover"
         controls
-        autoPlay
-        muted
-        loop
       ></video>
     </div>
   );
