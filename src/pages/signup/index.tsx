@@ -65,14 +65,14 @@ const Signup = () => {
                 </Button>
               ) : (
                 <Button onClick={_signup} type="submit">
-                  Get started{" "}
+                  Sign-Up{" "}
                 </Button>
               )}
             </div>
           </div>
           <div className="max-w-sm flex-1">
             <section className="w-full flex justify-center">
-              <div className="w-full min-h-10 h-[45vh] md:h-[400px]">
+              <div className="w-full min-h-10 h-[48vh] md:h-[400px]">
                 <StructureSchool />
               </div>
             </section>

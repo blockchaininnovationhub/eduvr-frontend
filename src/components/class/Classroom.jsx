@@ -4,7 +4,7 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { Students } from "@/components/class/Students";
 import { Teacher } from "../Teacher";
 import { degToRad } from "three/src/math/MathUtils";
-import { Navbar } from "@/components/Nav";
+import { Navbar } from "@/components/class/Nav";
 import { Board } from "./Board";
 import ClassRooomStructure from "./ClassStructure";
 import { Suspense, useState } from "react";

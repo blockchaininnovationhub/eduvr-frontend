@@ -16,6 +16,8 @@ import { createCall, getStats } from "@/utils/call";
 import LinkTable from "../../components/dashboard/LinkTable";
 import { useRouter } from "next/router";
 import { CallProps } from "@/types";
+import useLoading from "@/hooks/useLoading";
+  
 
 type StatProps = {
   totalCalls: number;
@@ -23,6 +25,10 @@ type StatProps = {
 };
 
 export default function Dashboard() {
+  const { isLoading, stopLoading } = useLoading(true);
+
+  console.log(isLoading);
+
   const [stats, setStats] = useState<StatProps>({
     totalCalls: 0,
     activeCalls: 0,
@@ -38,8 +44,10 @@ export default function Dashboard() {
 
     _getStats();
   }, []);
+
   return (
-    <AuthMiddleware>
+    isLoading && (
+      <AuthMiddleware>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
         <DashboardLayout />
         <div className="flex flex-col">
@@ -93,6 +101,8 @@ export default function Dashboard() {
           </main>
         </div>
       </div>
-    </AuthMiddleware>
+      </AuthMiddleware>
+    )
+    
   );
 }

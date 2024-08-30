@@ -102,18 +102,20 @@ const DashbardLayout = () => {
                 </div>
                 <div className="mt-auto p-4">
                     <Card x-chunk="dashboard-02-chunk-0">
-                    <CardHeader className="p-2 pt-0 md:p-4">
-                        <CardTitle>Upgrade to Pro</CardTitle>
-                        <CardDescription>
-                        Unlock all features and get unlimited access to our support
-                        team.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                        <Button size="sm" className="w-full">
-                        Upgrade
-                        </Button>
-                    </CardContent>
+                        <CardHeader className="p-2 pt-0 md:p-4">
+                            <CardTitle>Upgrade to Pro</CardTitle>
+                            <CardDescription>
+                            Unlock all features and get unlimited access to our support
+                            team.
+                            </CardDescription>
+                        </CardHeader>
+                        <Link href="/Coming-soon">
+                            <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+                                <Button size="sm" className="w-full">
+                                Coming soon
+                                </Button>
+                            </CardContent>
+                        </Link>
                     </Card>
                 </div>
             </div>

@@ -21,9 +21,14 @@ import { useRouter } from "next/router";
 import { useMemo } from "react";
 
 import { toast } from "sonner";
-import ShareLink from "./class/ShareLink";
+import ShareLink from "./ShareLink";
+import ShareScreenButton from "./ShareSceenbtn";
 
-export const Navbar = () => {
+interface Props {
+    onShareScreen: any;
+}
+
+export const Navbar : React.FC<Props> = ({ onShareScreen }) => {
 
     const router = useRouter();
     const { id } = router.query;
@@ -92,6 +97,7 @@ export const Navbar = () => {
                             <path d="M10 13l5-3-5-3z"></path>
                         </svg>
                     </div>
+                    <ShareScreenButton onShareScreen={onShareScreen} />
                     <ShareLink />
                     <DropdownMenu>
                         <DropdownMenuTrigger>
