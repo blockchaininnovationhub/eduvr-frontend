@@ -10,8 +10,6 @@ export const Board = ({ localRef }) => {
         className="w-full h-full object-cover"
         controls
       ></video>
-
-  
     </div>
   );
 };

@@ -55,9 +55,12 @@ export const StudentBoard = ({ sessionId }) => {
     <div className="w-[1700px] h-[415px] flex flex-row relative overflow-y-auto bg-slate-900">
       <video
         ref={remoteRef}
-        src="/Venice_5.mp4"
+        src="/videos/intro.MOV"
         className="w-full h-full object-cover"
         controls
+        autoPlay
+        muted
+        loop
       ></video>
     </div>
   );
