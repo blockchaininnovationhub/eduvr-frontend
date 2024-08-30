@@ -100,17 +100,16 @@ export const Students = () => {
     return _id;
   }, [id]);
 
-
   const [seatingPosition, setSeatingPosition] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            const participants = await getCallParticipants(parsedId);
-            setSeatingPosition(participants);
-        } catch (error) {
-            console.error("Failed to fetch participants:", error);
-        }
+      try {
+        const participants = await getCallParticipants(parsedId);
+        setSeatingPosition(participants);
+      } catch (error) {
+        console.error("Failed to fetch participants:", error);
+      }
     };
     fetchData();
 
@@ -128,82 +127,32 @@ export const Students = () => {
 
   return (
     <>
-      {seatingPosition.map((data : any, index) => {
-                const characterPosition = 
-                  data.avatar === "0"
-                  ? positions[data.position] 
-                  : data.avatar === "1" 
-                  ? positionsfemale[data.position] 
-                  : [0, 0, 0];
+      {seatingPosition.map((data: any, index) => {
+        const characterPosition =
+          data.avatar === "1"
+            ? positions[data.position]
+            : data.avatar === "2"
+            ? positionsfemale[data.position]
+            : [0, 0, 0];
 
-                const componentToRender =
-                    data.avatar === "0"
-                        ? cachedComponents.male
-                        : data.avatar === "1"
-                        ? cachedComponents.female
-                        : null;
+        const componentToRender =
+          data.avatar === "1"
+            ? cachedComponents.male
+            : data.avatar === "2"
+            ? cachedComponents.female
+            : null;
 
-                return componentToRender ? (
-                    <React.Fragment key={index}>
-                        {React.cloneElement(componentToRender, {
-                            position: characterPosition,
-                            rotation: [0, Math.PI, 0],
-                        })}
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment key={index}>null</React.Fragment>
-                );
+        return componentToRender ? (
+          <React.Fragment key={index}>
+            {React.cloneElement(componentToRender, {
+              position: characterPosition,
+              rotation: [0, Math.PI, 0],
+            })}
+          </React.Fragment>
+        ) : (
+          <React.Fragment key={index}>null</React.Fragment>
+        );
       })}
-      {/* {!isLoading &&
-        seatingPosition.map((data: any, index) => {
-          // const characterPosition =
-          //   data.avatar === 0
-          //     ? positions[data.position]
-          //     : data.avatar === 1
-          //     ? positionsfemale[data.position]
-          //     : [0, 0, 0];
-
-          // const componentToRender =
-          //   data.avatar === 0
-          //     ? cachedComponents.male
-          //     : data.avatar === 1
-          //     ? cachedComponents.female
-          //     : null;
-
-          // return componentToRender ? (
-          //   <React.Fragment key={index}>
-          //     {React.cloneElement(componentToRender, {
-          //       position: characterPosition,
-          //       rotation: [0, Math.PI, 0],
-          //     })}
-          //   </React.Fragment>
-          // ) : (
-          //   <React.Fragment key={index}>null</React.Fragment>
-          // );
-          const characterPosition =
-            data.avatar === 0
-              ? positions[data.position]
-              : data.avatar === 1
-              ? positionsfemale[data.position]
-              : null || [0, 0, 0];
-          const componentToRender =
-            data.avatar === 0
-              ? cachedComponents.male
-              : data.avatar === 1
-              ? cachedComponents.female
-              : null;
-
-          return componentToRender ? (
-            <React.Fragment key={index}>
-              {React.cloneElement(componentToRender, {
-                position: characterPosition,
-                rotation: [0, Math.PI, 0],
-              })}
-            </React.Fragment>
-          ) : (
-            <React.Fragment key={index}>null</React.Fragment>
-          );
-      })} */}
     </>
   );
 };

@@ -7,10 +7,12 @@ import { degToRad } from "three/src/math/MathUtils";
 import { Navbar } from "@/components/class/Nav";
 import { Board } from "./Board";
 import ClassRooomStructure from "./ClassStructure";
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, useRef, useCallback } from "react";
 import CanvasLoader from "../CanvasLoader";
 import { Toaster } from "sonner";
 import Image from "next/image";
+import Peer from "peerjs";
+import { createEmptyMediaStream } from "@/utils/stream";
 
 const IntroOverlay = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -82,12 +84,73 @@ const Classroom = ({ sessionId }) => {
     [3.2, 0, 6],
   ];
 
+  const localRef = useRef(null);
+  const [callStates, setCallStates] = useState([]);
+  const [stream, setStream] = useState(createEmptyMediaStream());
+
+  const getStream = useCallback(() => {
+    return stream;
+  }, [stream]);
+
+  const shareScreen = () => {
+    navigator.mediaDevices
+      .getDisplayMedia({ video: true, audio: true })
+      .then((stream) => {
+        localRef.current.srcObject = stream;
+
+        localRef.current.onloadedmetadata = () => {
+          localRef.current.play();
+        };
+
+        setStream(stream);
+        callStates.forEach((callState, _) => {
+          callState.peerConnection.getSenders().forEach((sender) => {
+            if (
+              sender.track.kind === "audio" &&
+              stream.getAudioTracks().length > 0
+            ) {
+              sender.replaceTrack(stream.getAudioTracks()[0]);
+            }
+            if (
+              sender.track.kind === "video" &&
+              stream.getVideoTracks().length > 0
+            ) {
+              sender.replaceTrack(stream.getVideoTracks()[0]);
+            }
+          });
+        });
+      });
+  };
+
+  useEffect(() => {
+    const peer = new Peer(sessionId);
+
+    peer.on("open", (id) => {
+      console.log("My session ID is " + id);
+    });
+
+    peer.on("call", (call) => {
+      const _callStates = callStates;
+      _callStates.push(call);
+      setCallStates(_callStates);
+      call.answer(getStream());
+    });
+
+    peer.on("connection", (connection) => {
+      console.log("Connected:", connection);
+    });
+
+    peer.on("error", (err) => {
+      console.error("Peer error:", err);
+    });
+  }, []);
+
   const [seatVal, setSeatVal] = useState(4);
 
   return (
     <>
       <div className="w-12 z-10 h-full right-10 fixed bottom-0 flex flex-col">
-        <Navbar />
+        <Navbar shareScreen={shareScreen} />
       </div>
 
       <IntroOverlay />
@@ -109,7 +172,7 @@ const Classroom = ({ sessionId }) => {
             occlude={false}
             followCamera={false}
           >
-            <Board sessionId={sessionId} />
+            <Board localRef={localRef} />
           </Html>
           <ambientLight intensity={0.5} color="black" />
           <ClassRooomStructure

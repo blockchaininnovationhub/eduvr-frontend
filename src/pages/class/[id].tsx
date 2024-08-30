@@ -91,7 +91,6 @@ const Class = () => {
   return (
     !isLoading && (
       <main className="w-full h-screen min-h-screen">
-        <p>{id}</p>
         {isTeacher ? (
           <AuthMiddleware>
             {" "}

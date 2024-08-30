@@ -23,6 +23,7 @@ import {
 import { promises } from "dns";
 import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
+import useLoading from "@/hooks/useLoading";
 
 interface Props {
   callId: string;
@@ -33,13 +34,15 @@ const PickSeat: React.FC<Props> = ({ callId }) => {
   const [pickedSeat, setPickedSeat] = useState<number | null>(null);
   const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null);
 
+  const { isLoading, stopLoading, startLoading } = useLoading();
+
   const chairs = useMemo(() => {
     return Array.from({ length: 32 }, (_, index) => index);
   }, []);
 
   const avatars = [
-    { src: "/avatar/default-0.png", id: 0 },
-    { src: "/avatar/default-1.png", id: 1 }
+    { src: "/avatar/default-0.png", id: 1 },
+    { src: "/avatar/default-1.png", id: 2 }
   ];
 
   useEffect(() => {
@@ -56,13 +59,14 @@ const PickSeat: React.FC<Props> = ({ callId }) => {
   }, [callId]);
 
   const handleSubmit = async () => {
+    startLoading();
     if (typeof selectedAvatar !== "number" || typeof pickedSeat !== "number") {
       toast("Error", {
         description: "Select Seat and Avatar",
       });
+      stopLoading();
       return;
     }
-
     try {
       await createCallParticipant({
         avatar: selectedAvatar,
@@ -80,10 +84,12 @@ const PickSeat: React.FC<Props> = ({ callId }) => {
 
       localStorage.setItem("seats", JSON.stringify(seats));
       window.location.reload();
+      stopLoading();
     } catch (error: any) {
       toast("Error", {
         description: error?.response?.data?.message,
       });
+      stopLoading();
     }
   };
 
@@ -158,11 +164,13 @@ const PickSeat: React.FC<Props> = ({ callId }) => {
               </div>
             </div>
             <div className="mt-4">
-              <Button disabled>
+              {isLoading ? (
+                <Button disabled>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Please wait
-              </Button>
-              <Button onClick={handleSubmit}>Join ClassRoom</Button>
+                </Button>
+              ) 
+              : (<Button onClick={handleSubmit}>Join ClassRoom</Button>) }
             </div>
           </div>
           <div className="max-w-sm flex-1">

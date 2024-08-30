@@ -27,8 +27,6 @@ type StatProps = {
 export default function Dashboard() {
   const { isLoading, stopLoading } = useLoading(true);
 
-  console.log(isLoading);
-
   const [stats, setStats] = useState<StatProps>({
     totalCalls: 0,
     activeCalls: 0,

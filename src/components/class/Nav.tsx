@@ -25,10 +25,10 @@ import ShareLink from "./ShareLink";
 import ShareScreenButton from "./ShareSceenbtn";
 
 interface Props {
-    onShareScreen: any;
+    shareScreen: any;
 }
 
-export const Navbar : React.FC<Props> = ({ onShareScreen }) => {
+export const Navbar : React.FC<Props> = ({ shareScreen }) => {
 
     const router = useRouter();
     const { id } = router.query;
@@ -85,23 +85,11 @@ export const Navbar : React.FC<Props> = ({ onShareScreen }) => {
                             <path d="M8.011 12.132a3.993 3.993 0 003.877 3.877l-3.877-3.877z"></path>
                         </svg>
                     </div>
-                    <div className="w-12 h-12 rounded-full glass_bg flex justify-center items-center">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-6 h-6 text-slate-700"
-                            viewBox="0 0 24 24"
-                            style={{}}
-                            fill="currentColor"
-                            >
-                            <path d="M20 3H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h7v3H8v2h8v-2h-3v-3h7c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 15V5h16l.001 10H4z"></path>
-                            <path d="M10 13l5-3-5-3z"></path>
-                        </svg>
-                    </div>
-                    <ShareScreenButton onShareScreen={onShareScreen} />
+                    <ShareScreenButton onShareScreen={shareScreen} />
                     <ShareLink />
                     <DropdownMenu>
                         <DropdownMenuTrigger>
-                            <div className="w-12 h-12 rounded-full glass_bg flex justify-center items-center hidden">
+                            <div className="w-12 h-12 rounded-full glass_bg justify-center items-center hidden">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="w-6 h-6 text-slate-700"
