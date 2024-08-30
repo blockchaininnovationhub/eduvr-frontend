@@ -83,9 +83,6 @@ const HeroNav = () => {
                 </NavigationMenuList>
               </NavigationMenu>
             </li>
-            <Link href="/class">
-              <li>ClassRoom</li>
-            </Link>
             <Link href="/login">
               <li>Login</li>
             </Link>

@@ -11,6 +11,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import DialogRoom from "@/components/RoomLink";
+import Link from "next/link";
 
 const CreateClassroom = () => {
   return (
@@ -24,7 +25,7 @@ const CreateClassroom = () => {
             <DrawerTitle>New ClassRoom</DrawerTitle>
             <DrawerDescription>
               Generate a quick classroom link for immediate use or future
-              scheduling
+              scheduling from your dashboard
             </DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>

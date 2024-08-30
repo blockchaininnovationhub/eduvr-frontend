@@ -1,11 +1,10 @@
 import SchoolCav from "@/components/home/SchoolCanvas";
 import { Button } from "@/components/ui/button"
-
 import { Toaster } from "@/components/ui/sonner"
-
-import CreateClassroom from "@/components/CreateClassroom"
 import JoinClassroom from "@/components/JoinClassroom"
 import HeroNav from "@/components/HeroNav";
+
+import Link from "next/link";
 
 const Homepage = () => {   
     return(
@@ -23,10 +22,10 @@ const Homepage = () => {
             <div className="max-w-xl">
               <div className="text-center flex flex-col gap-y-2 mt-4">
                 <h1 className="text-4xl md:text-5xl font-semibold text-slate-800">Connect to 3D classroom for everyone</h1>
-                <p className="text-xl md:text-2xl text-slate-700 py-2">Connect, interact, and learn from any location with EduVR.</p>
+                <p className="text-xl md:text-2xl text-slate-700 py-2">Connect, interact, and learn from any anywhere with EduVR - The Future of Education on Chain.</p>
               </div>
               <div className="mt-4 text-center flex flex-row gap-x-3 justify-center">
-                <CreateClassroom />
+                <Link href="/signup"><Button>Get Started</Button></Link>
                 <JoinClassroom />
               </div>
             </div>

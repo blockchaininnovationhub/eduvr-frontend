@@ -60,28 +60,28 @@ const NavHeader = () => {
                   <span className="sr-only">EduVR</span>
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <Home className="h-5 w-5" />
                   Dashboard
                 </Link>
                 <Link
-                  href="#"
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+                  href="/dashboard/Link"
+                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground hover:text-foreground"
                 >
                   <ShoppingCart className="h-5 w-5" />
                   Manage Links
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard/Passport"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <Package className="h-5 w-5" />
                   My Passport
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard/Coming-soon"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <Users className="h-5 w-5" />
@@ -91,7 +91,7 @@ const NavHeader = () => {
                   </Badge>
                 </Link>
                 <Link
-                  href="./Coming-soon"
+                  href="/dashboard/Coming-soon"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <LineChart className="h-5 w-5" />
@@ -101,7 +101,7 @@ const NavHeader = () => {
                   </Badge>
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard/Coming-soon"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <LineChart className="h-5 w-5" />
@@ -111,7 +111,7 @@ const NavHeader = () => {
                   </Badge>
                 </Link>
                 <Link
-                  href="#"
+                  href="/dashboard/Coming-soon"
                   className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <LineChart className="h-5 w-5" />
@@ -130,11 +130,13 @@ const NavHeader = () => {
                       support team.
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <Button size="sm" className="w-full">
-                      Upgrade
-                    </Button>
-                  </CardContent>
+                  <Link href="/dashboard/Coming-soon">
+                    <CardContent>
+                      <Button size="sm" className="w-full">
+                        Upgrade
+                      </Button>
+                    </CardContent>
+                  </Link>
                 </Card>
               </div>
             </SheetContent>
